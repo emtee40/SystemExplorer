@@ -1,11 +1,11 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"                   
                     xmlns:root="clr-namespace:SystemExplorer"
-						  xmlns:z="http://zodiacon.wpf/2016"
+				    xmlns:z="http://zodiacon.wpf/2016"
                     >
 	<z:BooleanToVisibilityConverter x:Key="bool2vis" />
     <root:MenuItemTemplateSelector x:Key="menuItemTemplateSelector" SeparatorTemplateKey="separatorTemplate" MenuItemTemplateKey="menuItemTemplate" />
-    <Style TargetType="TabItem" >
+    <!--<Style TargetType="TabItem" >
 		<Setter Property="Background" Value="{DynamicResource AccentColorBrush4}" />
 		<Setter Property="HeaderTemplate">
 			<Setter.Value>
@@ -26,7 +26,7 @@
 				<Setter Property="Background" Value="{DynamicResource WhiteBrush}" />
 			</Trigger>
 		</Style.Triggers>
-	</Style>
+	</Style>-->
     <Style TargetType="MenuItem" x:Key="menuItemStyle">
         
     </Style>

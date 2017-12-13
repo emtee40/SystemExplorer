@@ -22,4 +22,8 @@ namespace SystemExplorer.Core {
     public interface IModule {
         bool Init();
     }
+
+    public interface IServiceProvider<T> where T : class {
+        T GetService();
+    }
 }

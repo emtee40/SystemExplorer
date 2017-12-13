@@ -12,6 +12,7 @@ namespace SystemExplorer.Core {
         ObservableCollection<TreeViewItemBase> _items;
 
         string _text, _icon;
+        bool _isExpanded, _isSelected;
 
         public IEnumerable<MenuItemViewModel> ContextMenu { get => _contextMenu; set => SetProperty(ref _contextMenu, value); }
         public string Text { get => _text; set => SetProperty(ref _text, value); }
@@ -20,5 +21,8 @@ namespace SystemExplorer.Core {
         public virtual TabItemViewModelBase CreateTabItem() => null;
 
         public IList<TreeViewItemBase> Items => _items ?? (_items = new ObservableCollection<TreeViewItemBase>());
+
+        public bool IsExpanded { get => _isExpanded; set => SetProperty(ref _isExpanded, value); }
+        public bool IsSelected { get => _isSelected; set => SetProperty(ref _isSelected, value); }
     }
 }

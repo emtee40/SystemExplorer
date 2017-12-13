@@ -25,8 +25,9 @@ namespace SystemExplorer {
 			base.OnStartup(e);
 
             Catalog = new AggregateCatalog(
-                new DirectoryCatalog(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + @"\Modules"),
+                new DirectoryCatalog(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + @"\Modules", "*.dll"),
                 new AssemblyCatalog(Assembly.GetExecutingAssembly()));
+
             Container = new CompositionContainer(Catalog);
 			var ui = new UIServicesDefaults();
             Container.ComposeExportedValue<IUIServices>(ui);

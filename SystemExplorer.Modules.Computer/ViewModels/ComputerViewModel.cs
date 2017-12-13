@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using SystemExplorer.Core;
 
-namespace SystemExplorer.Modules.Computer {
+namespace SystemExplorer.Modules.Computer.ViewModels {
     [Item(Text = "Computer")]
     sealed class ComputerViewModel : TabItemViewModelBase {
         public ComputerViewModel() {

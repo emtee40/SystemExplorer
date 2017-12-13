@@ -13,12 +13,12 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace SystemExplorer.Modules.Computer.Views {
+namespace SystemExplorer.Core.Controls {
     /// <summary>
-    /// Interaction logic for ComputerView.xaml
+    /// Interaction logic for OKCancel.xaml
     /// </summary>
-    public partial class ComputerView {
-        public ComputerView() {
+    public partial class OKCancel {
+        public OKCancel() {
             InitializeComponent();
         }
     }

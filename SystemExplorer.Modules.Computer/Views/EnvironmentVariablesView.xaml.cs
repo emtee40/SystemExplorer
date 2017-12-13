@@ -17,7 +17,7 @@ namespace SystemExplorer.Modules.Computer.Views {
     /// <summary>
     /// Interaction logic for EnvironmentVariablesView.xaml
     /// </summary>
-    public partial class EnvironmentVariablesView : UserControl {
+    public partial class EnvironmentVariablesView {
         public EnvironmentVariablesView() {
             InitializeComponent();
         }

@@ -9,7 +9,7 @@ using System.Windows.Input;
 
 namespace SystemExplorer.Core {
     public class MenuItemViewModel : BindableBase {
-        string _text, _icon;
+        string _text, _icon, _gestureText;
         bool _isCheckable, _isChecked, _isVisible = true;
         ICommand _command;
         object _commandParameter;
@@ -21,9 +21,11 @@ namespace SystemExplorer.Core {
         public bool IsChecked { get => _isChecked; set => SetProperty(ref _isChecked, value); }
         public ICommand Command { get => _command; set => SetProperty(ref _command, value); }
         public object CommandParameter { get => _commandParameter; set => SetProperty(ref _commandParameter, value); }
+        public bool IsVisible { get => _isVisible; set => SetProperty(ref _isVisible, value); }
 
         public IList<MenuItemViewModel> Items => _items ?? (_items = new ObservableCollection<MenuItemViewModel>());
 
         public bool IsSeparator { get; set; }
+        public string GestureText { get => _gestureText; set => SetProperty(ref _gestureText, value); }
     }
 }

@@ -51,8 +51,9 @@ namespace SystemExplorer.Models {
         }
 
         public void OnImportsSatisfied() {
-            foreach (var module in _moduleInstances)
+            foreach (var module in _moduleInstances) {
                 AddModule(module);
+            }
         }
 
         private bool AddModule(IModule module) {

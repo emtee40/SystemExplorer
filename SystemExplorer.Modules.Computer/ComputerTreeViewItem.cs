@@ -4,7 +4,9 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using SystemExplorer.Core;
+using SystemExplorer.Modules.Computer.ViewModels;
 
 namespace SystemExplorer.Modules.Computer {
     class ComputerTreeViewItem : TreeViewItemBase {

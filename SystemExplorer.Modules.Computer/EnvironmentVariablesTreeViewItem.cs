@@ -5,11 +5,12 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using SystemExplorer.Core;
+using SystemExplorer.Modules.Computer.ViewModels;
 
 namespace SystemExplorer.Modules.Computer {
     sealed class EnvironmentVariablesTreeViewItem : TreeViewItemBase {
         public EnvironmentVariablesTreeViewItem() {
-            Text = "Env. Variables";
+            Text = "Environment Variables";
             Icon = Helpers.ToPackUri(Assembly.GetExecutingAssembly(), "/icons/variables.ico").ToString();
         }
 

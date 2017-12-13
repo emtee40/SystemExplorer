@@ -14,6 +14,7 @@ using System.Windows.Input;
 using SystemExplorer.Core;
 using SystemExplorer.Interfaces;
 using SystemExplorer.Models;
+using SystemExplorer.Resources;
 using Zodiacon.WPF;
 
 namespace SystemExplorer.ViewModels {
@@ -88,6 +89,14 @@ namespace SystemExplorer.ViewModels {
                     }
                 },
                 new MenuItemViewModel {
+                    Text = "_Edit",
+                    Items = {
+                        new MenuItemViewModel { Text = "_Copy", Icon = Icons.Copy, GestureText = "Ctrl+C" },
+                        new MenuItemViewModel { Text = "C_ut", Icon = Icons.Cut, GestureText = "Ctrl+X" },
+                        new MenuItemViewModel { Text = "_Paste", Icon = Icons.Paste, GestureText = "Ctrl+V" },
+                    }
+                },
+                new MenuItemViewModel {
                     Text = "_Help",
                     Items = {
                         new MenuItemViewModel { Text = "_About System Explorer..." }
@@ -111,7 +120,9 @@ namespace SystemExplorer.ViewModels {
                             AddTab(tab, true);
                         }
                         else {
-                            _tabItems[SelectedTabIndex] = value.CreateTabItem();
+                            int index = SelectedTabIndex;
+                            _tabItems.RemoveAt(index);
+                            _tabItems.Insert(index, value.CreateTabItem());
                         }
 
                     }
@@ -121,6 +132,8 @@ namespace SystemExplorer.ViewModels {
 
         public void AddTreeItem(TreeViewItemBase item) {
             _treeItems.Add(item);
+            if (SelectedTreeItem == null)
+                SelectedTreeItem = item;
         }
 
         public void RemoveTreeItem(TreeViewItemBase item) {

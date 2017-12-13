@@ -9,11 +9,12 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>SystemExplorer</RootNamespace>
     <AssemblyName>SystemExplorer</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -25,6 +26,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <NoWarn>649</NoWarn>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -48,13 +50,35 @@
     <Reference Include="Prism, Version=6.3.0.0, Culture=neutral, PublicKeyToken=40ee6c3a2184dc59, processorArchitecture=MSIL">
       <HintPath>..\packages\Prism.Core.6.3.0\lib\net45\Prism.dll</HintPath>
     </Reference>
-    <Reference Include="Syncfusion.Shared.Wpf, Version=15.4451.0.17, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89" />
-    <Reference Include="Syncfusion.Tools.Wpf, Version=15.4451.0.17, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89" />
+    <Reference Include="Syncfusion.Data.WPF, Version=15.4451.0.17, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89">
+      <HintPath>C:\Program Files (x86)\Syncfusion\Essential Studio\15.4.0.17\precompiledassemblies\15.4.0.17\4.5.1\Syncfusion.Data.WPF.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Syncfusion.SfGrid.WPF, Version=15.4451.0.17, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89">
+      <HintPath>C:\Program Files (x86)\Syncfusion\Essential Studio\15.4.0.17\precompiledassemblies\15.4.0.17\4.5.1\Syncfusion.SfGrid.WPF.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Syncfusion.SfSkinManager.Wpf, Version=15.4451.0.17, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89">
+      <HintPath>C:\Program Files (x86)\Syncfusion\Essential Studio\15.4.0.17\precompiledassemblies\15.4.0.17\4.5.1\Syncfusion.SfSkinManager.Wpf.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Syncfusion.Shared.Wpf, Version=15.4451.0.17, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89">
+      <HintPath>C:\Program Files (x86)\Syncfusion\Essential Studio\15.4.0.17\precompiledassemblies\15.4.0.17\4.5.1\Syncfusion.Shared.Wpf.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Syncfusion.Themes.Metro.Wpf, Version=15.4451.0.17, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89">
+      <HintPath>C:\Program Files (x86)\Syncfusion\Essential Studio\15.4.0.17\precompiledassemblies\15.4.0.17\4.5.1\Syncfusion.Themes.Metro.Wpf.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Syncfusion.Tools.Wpf, Version=15.4451.0.17, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89">
+      <HintPath>C:\Program Files (x86)\Syncfusion\Essential Studio\15.4.0.17\precompiledassemblies\15.4.0.17\4.5.1\Syncfusion.Tools.Wpf.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Data" />
     <Reference Include="System.ValueTuple, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.ValueTuple.4.4.0\lib\netstandard1.0\System.ValueTuple.dll</HintPath>
+      <HintPath>..\packages\System.ValueTuple.4.4.0\lib\net461\System.ValueTuple.dll</HintPath>
     </Reference>
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\ControlzEx.3.0.2.4\lib\net45\System.Windows.Interactivity.dll</HintPath>
@@ -72,8 +96,8 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
-    <Reference Include="Zodiacon.WPF, Version=1.1.6386.33504, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Zodiacon.WPF.1.2.13\lib\net45\Zodiacon.WPF.dll</HintPath>
+    <Reference Include="Zodiacon.WPF, Version=1.1.6543.24348, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Zodiacon.WPF.1.2.15\lib\net45\Zodiacon.WPF.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -81,9 +105,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Behaviors\EventToCommand.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="Converters\IconConverter.cs" />
+    <Compile Include="Resources\Icons.cs" />
     <Compile Include="Interfaces\ISystemExplorerInternal.cs" />
     <Compile Include="Interfaces\ITabManager.cs" />
     <Compile Include="Interfaces\ITreeManager.cs" />
@@ -152,14 +176,25 @@
       <Name>SystemExplorer.Core</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Behaviors\" />
+  </ItemGroup>
   <ItemGroup>
     <Resource Include="Icons\close.ico" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Icons\app.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\copy.ico" />
+    <Resource Include="Icons\cut.ico" />
+    <Resource Include="Icons\paste.ico" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
