@@ -21,8 +21,10 @@ namespace SystemExplorer.Modules.Computer {
             var root = new ComputerTreeViewItem {
                 Items = {
                     new EnvironmentVariablesTreeViewItem()
-                }
+                },
+                IsExpanded = true
             };
+
             Explorer.AddTreeViewItem(root, this);
             var resources = new ResourceDictionary { Source = Helpers.ToPackUri(Assembly.GetExecutingAssembly(), "/resources.xaml") };
             Explorer.AddResourceDictionary(resources, this);

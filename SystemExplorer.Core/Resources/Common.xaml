@@ -10,7 +10,7 @@
         <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
     </ResourceDictionary.MergedDictionaries>
     
-    <Style TargetType="{x:Type sf:SfDataGrid}" >
+    <Style TargetType="{x:Type sf:SfDataGrid}" x:Key="SfDataGridStyle">
         <Setter Property="sf:SkinStorage.VisualStyle" Value="Metro" />
         <Setter Property="RowSelectionBrush" Value="{DynamicResource AccentColorBrush}" />
         <Setter Property="RowHoverHighlightingBrush" Value="{DynamicResource AccentColorBrush3}" />

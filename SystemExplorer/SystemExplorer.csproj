@@ -50,30 +50,12 @@
     <Reference Include="Prism, Version=6.3.0.0, Culture=neutral, PublicKeyToken=40ee6c3a2184dc59, processorArchitecture=MSIL">
       <HintPath>..\packages\Prism.Core.6.3.0\lib\net45\Prism.dll</HintPath>
     </Reference>
-    <Reference Include="Syncfusion.Data.WPF, Version=15.4451.0.17, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89">
-      <HintPath>C:\Program Files (x86)\Syncfusion\Essential Studio\15.4.0.17\precompiledassemblies\15.4.0.17\4.5.1\Syncfusion.Data.WPF.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Syncfusion.SfGrid.WPF, Version=15.4451.0.17, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89">
-      <HintPath>C:\Program Files (x86)\Syncfusion\Essential Studio\15.4.0.17\precompiledassemblies\15.4.0.17\4.5.1\Syncfusion.SfGrid.WPF.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Syncfusion.SfSkinManager.Wpf, Version=15.4451.0.17, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89">
-      <HintPath>C:\Program Files (x86)\Syncfusion\Essential Studio\15.4.0.17\precompiledassemblies\15.4.0.17\4.5.1\Syncfusion.SfSkinManager.Wpf.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Syncfusion.Shared.Wpf, Version=15.4451.0.17, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89">
-      <HintPath>C:\Program Files (x86)\Syncfusion\Essential Studio\15.4.0.17\precompiledassemblies\15.4.0.17\4.5.1\Syncfusion.Shared.Wpf.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Syncfusion.Themes.Metro.Wpf, Version=15.4451.0.17, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89">
-      <HintPath>C:\Program Files (x86)\Syncfusion\Essential Studio\15.4.0.17\precompiledassemblies\15.4.0.17\4.5.1\Syncfusion.Themes.Metro.Wpf.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Syncfusion.Tools.Wpf, Version=15.4451.0.17, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89">
-      <HintPath>C:\Program Files (x86)\Syncfusion\Essential Studio\15.4.0.17\precompiledassemblies\15.4.0.17\4.5.1\Syncfusion.Tools.Wpf.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
+    <Reference Include="Syncfusion.Data.WPF, Version=15.4460.0.17, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89" />
+    <Reference Include="Syncfusion.SfGrid.WPF, Version=15.4460.0.17, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89" />
+    <Reference Include="Syncfusion.SfSkinManager.Wpf, Version=15.4460.0.17, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89" />
+    <Reference Include="Syncfusion.Shared.Wpf, Version=15.4460.0.17, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89" />
+    <Reference Include="Syncfusion.Themes.Metro.Wpf, Version=15.4460.0.17, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89" />
+    <Reference Include="Syncfusion.Tools.Wpf, Version=15.4460.0.17, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89" />
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Data" />
@@ -175,6 +157,10 @@
       <Project>{0438fdf4-860d-45d2-aa99-ad78dfd90a6b}</Project>
       <Name>SystemExplorer.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\SystemExplorer.Modules.Computer\SystemExplorer.Modules.Computer.csproj">
+      <Project>{a4552379-0f7a-41e4-9324-811026dc4c02}</Project>
+      <Name>SystemExplorer.Modules.Computer</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Behaviors\" />
@@ -192,8 +178,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PreBuildEvent>
-    </PreBuildEvent>
+    <PreBuildEvent></PreBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

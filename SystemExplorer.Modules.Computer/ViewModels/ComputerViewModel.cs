@@ -5,6 +5,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using SystemExplorer.Core;
+using Zodiacon.ManagedWindows.Core;
 
 namespace SystemExplorer.Modules.Computer.ViewModels {
     [Item(Text = "Computer")]
@@ -23,6 +24,33 @@ namespace SystemExplorer.Modules.Computer.ViewModels {
                     Name = "Windows Version",
                     Value = Environment.OSVersion.VersionString
                 };
+                yield return new DataItem {
+                    Name = "User name",
+                    Value = Environment.UserName
+                };
+                yield return new DataItem {
+                    Name = "Domain",
+                    Value = Environment.UserDomainName
+                };
+                yield return new DataItem {
+                    Name = "64 bit OS",
+                    Value = Environment.Is64BitOperatingSystem ? "Yes" : "No"
+                };
+                yield return new DataItem {
+                    Name = "Page Size",
+                    Value = $"{Environment.SystemPageSize >> 10} KB"
+                };
+
+                var si = SystemInformation.GetNativeSystemInfo();
+                yield return new DataItem {
+                    Name = "Processor Arch",
+                    Value = si.ProcessorArchitecture.ToString()
+                };
+                yield return new DataItem {
+                    Name = "Processor Count",
+                    Value = si.NumberOfProcessors.ToString()
+                };
+
 
             }
         }

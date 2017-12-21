@@ -42,26 +42,11 @@
     <Reference Include="Prism, Version=6.3.0.0, Culture=neutral, PublicKeyToken=40ee6c3a2184dc59, processorArchitecture=MSIL">
       <HintPath>..\packages\Prism.Core.6.3.0\lib\net45\Prism.dll</HintPath>
     </Reference>
-    <Reference Include="Syncfusion.Data.WPF, Version=15.4460.0.17, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89">
-      <HintPath>Syncfusion.Data.WPF.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Syncfusion.SfGrid.WPF, Version=15.4460.0.17, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89">
-      <HintPath>Syncfusion.SfGrid.WPF.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Syncfusion.SfSkinManager.Wpf, Version=15.4460.0.17, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89">
-      <HintPath>Syncfusion.SfSkinManager.Wpf.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Syncfusion.Shared.Wpf, Version=15.4460.0.17, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89">
-      <HintPath>Syncfusion.Shared.Wpf.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Syncfusion.Themes.Metro.Wpf, Version=15.4460.0.17, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89">
-      <HintPath>Syncfusion.Themes.Metro.Wpf.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
+    <Reference Include="Syncfusion.Data.WPF, Version=15.4460.0.17, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89" />
+    <Reference Include="Syncfusion.SfGrid.WPF, Version=15.4460.0.17, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89" />
+    <Reference Include="Syncfusion.SfSkinManager.Wpf, Version=15.4460.0.17, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89" />
+    <Reference Include="Syncfusion.Shared.Wpf, Version=15.4460.0.17, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89" />
+    <Reference Include="Syncfusion.Themes.Metro.Wpf, Version=15.4460.0.17, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89" />
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Data" />
@@ -81,6 +66,12 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="Zodiacon.ManagedWindows.Core, Version=1.0.6564.19415, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Zodiacon.ManagedWindows.Processes.0.1.15\lib\net45\Zodiacon.ManagedWindows.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Zodiacon.ManagedWindows.Processes, Version=1.0.6564.20097, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Zodiacon.ManagedWindows.Processes.0.1.15\lib\net45\Zodiacon.ManagedWindows.Processes.dll</HintPath>
+    </Reference>
     <Reference Include="Zodiacon.WPF, Version=1.1.6543.24348, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Zodiacon.WPF.1.2.15\lib\net45\Zodiacon.WPF.dll</HintPath>
     </Reference>
@@ -157,10 +148,14 @@
   <ItemGroup>
     <Folder Include="Converters\" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\variables-new.ico" />
+    <Resource Include="Icons\variables-properties.ico" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>if not exist $(SolutionDir)SystemExplorer\Bin\$(ConfigurationName)\Modules md $(SolutionDir)SystemExplorer\Bin\$(ConfigurationName)\Modules
-copy $(TargetPath) $(SolutionDir)\SystemExplorer\Bin\$(ConfigurationName)\Modules
+    <PostBuildEvent>rem if not exist $(SolutionDir)SystemExplorer\Bin\$(ConfigurationName)\Modules md $(SolutionDir)SystemExplorer\Bin\$(ConfigurationName)\Modules
+rem copy $(TargetPath) $(SolutionDir)\SystemExplorer\Bin\$(ConfigurationName)
 
 </PostBuildEvent>
   </PropertyGroup>

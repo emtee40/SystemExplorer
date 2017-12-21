@@ -30,5 +30,7 @@ namespace SystemExplorer.Modules.Computer.ViewModels {
                 return _variables;
             }
         }
+
+        public bool IsAdmin => Helpers.IsAdmin;
     }
 }

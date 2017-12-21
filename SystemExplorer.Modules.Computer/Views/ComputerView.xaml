@@ -22,7 +22,7 @@
             <RowDefinition Height="Auto" />
             <RowDefinition />
         </Grid.RowDefinitions>
-        <sf:SfDataGrid Grid.Row="1" ItemsSource="{Binding Items}" AllowResizingColumns="True" 
+        <sf:SfDataGrid Grid.Row="1" ItemsSource="{Binding Items}" AllowResizingColumns="True" Style="{StaticResource SfDataGridStyle}"
                         >
             <i:Interaction.Behaviors>
                 <b:SkinBehavior />
@@ -42,7 +42,6 @@
                         </DataTemplate>
                     </sf:GridTemplateColumn.CellTemplate>
                 </sf:GridTemplateColumn>
-                <!--<sf:GridTextColumn HeaderText="Description" MappingName="Description" MinimumWidth="80"/>-->
             </sf:SfDataGrid.Columns>
         </sf:SfDataGrid>
     </Grid>

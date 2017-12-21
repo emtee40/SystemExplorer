@@ -74,6 +74,7 @@
     <Compile Include="Behaviors\AutoGridRowHeightBehavior.cs" />
     <Compile Include="Behaviors\SkinBehavior.cs" />
     <Compile Include="Controls\OKCancel.xaml.cs" />
+    <Compile Include="Extensions\PackUriExtension.cs" />
     <Compile Include="Helpers.cs" />
     <Compile Include="IModule.cs" />
     <Compile Include="ISystemExplorer.cs" />
