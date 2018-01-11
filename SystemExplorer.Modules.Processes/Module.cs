@@ -1,33 +1,30 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
+using System.ComponentModel.Composition.Hosting;
 using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Markup;
 using SystemExplorer.Core;
-using SystemExplorer.Modules.Computer.ViewModels;
-using SystemExplorer.Modules.Computer.Views;
+using SystemExplorer.Modules.Processes.ViewModels;
 
-namespace SystemExplorer.Modules.Computer {
-    [Module("Computer", Author = "Pavel Yosifovich")]
+namespace SystemExplorer.Modules.Processes {
+    [Module("Processes", Author = "Pavel Yosifovich")]
     [Export(typeof(IModule))]
     public sealed class Module : IModule {
         [Import]
         ISystemExplorer Explorer;
 
-        public bool Init() {
-            var root = Explorer.Container.GetExportedValue<ComputerTreeViewItem>();
-            var envVar = Explorer.Container.GetExportedValue<EnvironmentVariablesTreeViewItem>();
-            root.Items.Add(envVar);
-            root.IsExpanded = true;
+        [Import]
+        CompositionContainer Container;
 
-            Explorer.AddTreeViewItem(root, this);
+        public bool Init() {
             var resources = new ResourceDictionary { Source = Helpers.ToPackUri(Assembly.GetExecutingAssembly(), "/resources.xaml") };
             Explorer.AddResourceDictionary(resources, this);
-
+            Explorer.AddTreeViewItem(Container.GetExportedValue<ProcessesTreeViewItem>(), this);
+            Explorer.AddTreeViewItem(Container.GetExportedValue<ThreadsTreeViewItem>(), this);
             return true;
         }
     }

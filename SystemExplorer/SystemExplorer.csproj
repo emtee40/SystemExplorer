@@ -25,7 +25,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <NoWarn>649</NoWarn>
+    <NoWarn>649,169</NoWarn>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -36,6 +36,8 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <NoWarn>649,169</NoWarn>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationManifest>app.manifest</ApplicationManifest>
@@ -50,12 +52,12 @@
     <Reference Include="Prism, Version=6.3.0.0, Culture=neutral, PublicKeyToken=40ee6c3a2184dc59, processorArchitecture=MSIL">
       <HintPath>..\packages\Prism.Core.6.3.0\lib\net45\Prism.dll</HintPath>
     </Reference>
-    <Reference Include="Syncfusion.Data.WPF, Version=15.4460.0.17, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89" />
-    <Reference Include="Syncfusion.SfGrid.WPF, Version=15.4460.0.17, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89" />
-    <Reference Include="Syncfusion.SfSkinManager.Wpf, Version=15.4460.0.17, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89" />
-    <Reference Include="Syncfusion.Shared.Wpf, Version=15.4460.0.17, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89" />
-    <Reference Include="Syncfusion.Themes.Metro.Wpf, Version=15.4460.0.17, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89" />
-    <Reference Include="Syncfusion.Tools.Wpf, Version=15.4460.0.17, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89" />
+    <Reference Include="Syncfusion.Data.WPF, Version=15.4460.0.20, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89" />
+    <Reference Include="Syncfusion.SfGrid.WPF, Version=15.4460.0.20, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89" />
+    <Reference Include="Syncfusion.SfSkinManager.Wpf, Version=15.4460.0.20, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89" />
+    <Reference Include="Syncfusion.Shared.Wpf, Version=15.4460.0.20, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89" />
+    <Reference Include="Syncfusion.Themes.Metro.Wpf, Version=15.4460.0.20, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89" />
+    <Reference Include="Syncfusion.Tools.Wpf, Version=15.4460.0.20, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89" />
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Data" />
@@ -91,11 +93,11 @@
     <Compile Include="Converters\IconConverter.cs" />
     <Compile Include="Resources\Icons.cs" />
     <Compile Include="Interfaces\ISystemExplorerInternal.cs" />
-    <Compile Include="Interfaces\ITabManager.cs" />
     <Compile Include="Interfaces\ITreeManager.cs" />
     <Compile Include="MenuItemTemplateSelector.cs" />
     <Compile Include="Models\ModuleManager.cs" />
     <Compile Include="Models\SystemExplorerImpl.cs" />
+    <Compile Include="SelectiveCommand.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="Views\MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
@@ -161,6 +163,10 @@
       <Project>{a4552379-0f7a-41e4-9324-811026dc4c02}</Project>
       <Name>SystemExplorer.Modules.Computer</Name>
     </ProjectReference>
+    <ProjectReference Include="..\SystemExplorer.Modules.Processes\SystemExplorer.Modules.Processes.csproj">
+      <Project>{7c512b63-3025-4420-b6b9-88566310ecd7}</Project>
+      <Name>SystemExplorer.Modules.Processes</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Behaviors\" />
@@ -175,6 +181,9 @@
     <Resource Include="Icons\copy.ico" />
     <Resource Include="Icons\cut.ico" />
     <Resource Include="Icons\paste.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\package.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

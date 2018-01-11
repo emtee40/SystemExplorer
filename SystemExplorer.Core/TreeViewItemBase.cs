@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -24,5 +25,13 @@ namespace SystemExplorer.Core {
 
         public bool IsExpanded { get => _isExpanded; set => SetProperty(ref _isExpanded, value); }
         public bool IsSelected { get => _isSelected; set => SetProperty(ref _isSelected, value); }
+
+        protected TreeViewItemBase() {
+            var item = GetType().GetCustomAttribute<ItemAttribute>();
+            if (item != null) {
+                Text = item.Text;
+                Icon = item.Icon;
+            }
+        }
     }
 }

@@ -20,6 +20,7 @@
         <Setter Property="NavigationMode" Value="Row" />
         <Setter Property="ColumnSizer" Value="Auto" />
         <Setter Property="AutoGenerateColumns" Value="False" />
+        <Setter Property="AllowResizingColumns" Value="True" />
         <Setter Property="sf:SkinStorage.MetroBrush" Value="{DynamicResource AccentColorBrush}" />
     </Style>
 

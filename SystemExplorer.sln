@@ -1,10 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27128.1
+VisualStudioVersion = 15.0.27130.2010
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SystemExplorer.Native", "SystemExplorer.Native\SystemExplorer.Native.csproj", "{42EB27DD-F100-420F-BB85-0234BB889E16}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SystemExplorer.Core", "SystemExplorer.Core\SystemExplorer.Core.csproj", "{0438FDF4-860D-45D2-AA99-AD78DFD90A6B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SystemExplorer", "SystemExplorer\SystemExplorer.csproj", "{B3B0AB35-4E46-4284-A8FD-0C772ED60506}"
@@ -13,16 +11,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules", "Modules", "{DB0D
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SystemExplorer.Modules.Computer", "SystemExplorer.Modules.Computer\SystemExplorer.Modules.Computer.csproj", "{A4552379-0F7A-41E4-9324-811026DC4C02}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SystemExplorer.Modules.Processes", "SystemExplorer.Modules.Processes\SystemExplorer.Modules.Processes.csproj", "{7C512B63-3025-4420-B6B9-88566310ECD7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{42EB27DD-F100-420F-BB85-0234BB889E16}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{42EB27DD-F100-420F-BB85-0234BB889E16}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{42EB27DD-F100-420F-BB85-0234BB889E16}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{42EB27DD-F100-420F-BB85-0234BB889E16}.Release|Any CPU.Build.0 = Release|Any CPU
 		{0438FDF4-860D-45D2-AA99-AD78DFD90A6B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{0438FDF4-860D-45D2-AA99-AD78DFD90A6B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0438FDF4-860D-45D2-AA99-AD78DFD90A6B}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -35,12 +31,17 @@ Global
 		{A4552379-0F7A-41E4-9324-811026DC4C02}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A4552379-0F7A-41E4-9324-811026DC4C02}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A4552379-0F7A-41E4-9324-811026DC4C02}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7C512B63-3025-4420-B6B9-88566310ECD7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7C512B63-3025-4420-B6B9-88566310ECD7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7C512B63-3025-4420-B6B9-88566310ECD7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7C512B63-3025-4420-B6B9-88566310ECD7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{A4552379-0F7A-41E4-9324-811026DC4C02} = {DB0D9BCC-845C-4117-8924-4E2583053386}
+		{7C512B63-3025-4420-B6B9-88566310ECD7} = {DB0D9BCC-845C-4117-8924-4E2583053386}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0155BA78-DD78-4998-AA9D-BE00B25F2088}

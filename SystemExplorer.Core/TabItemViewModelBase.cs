@@ -59,5 +59,9 @@ namespace SystemExplorer.Core {
 		}
 
 		public event EventHandler IsActiveChanged;
+
+        protected internal virtual bool CanClose => true;
+
+        protected internal virtual void OnClose() { }
 	}
 }

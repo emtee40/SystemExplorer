@@ -26,12 +26,12 @@ namespace SystemExplorer {
 
             Catalog = new AggregateCatalog(
                 new AssemblyCatalog(Assembly.GetExecutingAssembly()),
-                //new DirectoryCatalog(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + @"\Modules", "*.dll"),
-                new DirectoryCatalog(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "*.dll"));
+                new DirectoryCatalog(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "*.modules.*.dll"));
 
             Container = new CompositionContainer(Catalog);
 			var ui = new UIServicesDefaults();
             Container.ComposeExportedValue<IUIServices>(ui);
+            Container.ComposeExportedValue(Container);
             var vm = Container.GetExportedValue<MainViewModel>();
 			var win = new MainWindow { DataContext = vm };
 			win.Show();

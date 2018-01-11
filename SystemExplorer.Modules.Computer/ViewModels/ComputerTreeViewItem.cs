@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.Composition;
+using System.ComponentModel.Composition.Hosting;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -8,16 +10,19 @@ using System.Windows;
 using SystemExplorer.Core;
 using SystemExplorer.Modules.Computer.ViewModels;
 
-namespace SystemExplorer.Modules.Computer {
-    class ComputerTreeViewItem : TreeViewItemBase {
+namespace SystemExplorer.Modules.Computer.ViewModels {
+    [Export, Item(Text = "Computer")]
+    sealed class ComputerTreeViewItem : TreeViewItemBase {
+
+        [Import]
+        CompositionContainer Container;
 
         public ComputerTreeViewItem() {
-            Text = "Computer";
             Icon = Helpers.ToPackUri(Assembly.GetExecutingAssembly(), "/icons/computer.ico").ToString();
         }
 
         public override TabItemViewModelBase CreateTabItem() {
-            return new ComputerViewModel();
+            return Container.GetExportedValue<ComputerViewModel>();
         }
     }
 }

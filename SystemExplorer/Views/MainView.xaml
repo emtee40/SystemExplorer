@@ -21,31 +21,30 @@
 			<RowDefinition Height="Auto" />
 		</Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200" MinWidth="100" />
             <ColumnDefinition />
-            <ColumnDefinition Width="3*" />
         </Grid.ColumnDefinitions>
-        <Menu ItemsSource="{Binding MenuItems}" Grid.ColumnSpan="2" ItemContainerTemplateSelector="{StaticResource menuItemTemplateSelector}" UsesItemContainerTemplate="True">
-            <Menu.Resources>
-                <conv:IconConverter x:Key="iconConverter" />
-                <HierarchicalDataTemplate x:Key="menuItemTemplate" ItemsSource="{Binding Items}">
-                    <MenuItem ItemContainerTemplateSelector="{StaticResource menuItemTemplateSelector}" UsesItemContainerTemplate="True"
-                          Header="{Binding Text}" Command="{Binding Command}" CommandParameter="{Binding CommandParameter}"
-                          IsChecked="{Binding IsChecked}" metro:VisibilityHelper.IsVisible="{Binding IsVisible}"
-                          InputGestureText="{Binding GestureText}" ItemsSource="{Binding Items}" x:Name="item" 
-                          Icon="{Binding Icon, Converter={StaticResource iconConverter}}">
-                    </MenuItem>
-                </HierarchicalDataTemplate>
-
-                <DataTemplate x:Key="separatorTemplate">
-                    <Separator />
-                </DataTemplate>
-            </Menu.Resources>
-			
+        <Menu Grid.ColumnSpan="2">
+            <MenuItem Header="_File">
+                <MenuItem Header="E_xit" Command="{Binding ExitCommand}" />
+            </MenuItem>
+            <MenuItem Header="_Options">
+                <MenuItem Header="_Modules..." Command="{Binding OptionsModulesCommand}" />
+            </MenuItem>
+            <MenuItem Header="_Help">
+                <MenuItem Header="_About System Explorer..." Command="{Binding AboutCommand}" />
+            </MenuItem>
 		</Menu>
-		<ToolBar Grid.Row="1" ItemsSource="{Binding ToolbarItems}" Grid.ColumnSpan="2">
-			
+		<ToolBar Grid.Row="1" Grid.ColumnSpan="2">
+            <Button Command="{Binding OptionsModulesCommand}" Content="Modules">
+                
+            </Button>	
 		</ToolBar>
-        <sf:TreeViewAdv Grid.Row="2" ItemsSource="{Binding TreeItems}" SelectedTreeItem="{Binding SelectedTreeItem, Mode=TwoWay, Delay=50}" AnimationType="None">
+        <sf:TreeViewAdv Grid.Row="2" ItemsSource="{Binding TreeItems}" SelectedTreeItem="{Binding SelectedTreeItem, Mode=TwoWay, Delay=50}" AnimationType="None"
+                        sf:SkinStorage.VisualStyle="Metro">
+            <i:Interaction.Behaviors>
+                <z:EventToCommand EventName="MouseDoubleClick" Command="{Binding SwitchToTabCommand}" />
+            </i:Interaction.Behaviors>
             <sf:TreeViewAdv.ItemContainerStyle>
                 <Style TargetType="{x:Type sf:TreeViewItemAdv}">
                     <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}" />
@@ -69,7 +68,7 @@
             </sf:TreeViewAdv.ItemTemplate>
         </sf:TreeViewAdv>
 		<sf:TabControlExt Grid.Row="2" ItemsSource="{Binding TabItems}" SelectedItem="{Binding SelectedTab, Mode=TwoWay}" CloseButtonType="Individual" Grid.Column="1" 
-                          SelectedIndex="{Binding SelectedTabIndex, Mode=TwoWay}" HideHeaderOnSingleChild="False" EnableLabelEdit="False" IsNewButtonEnabled="True"
+                          SelectedIndex="{Binding SelectedTabIndex, Mode=TwoWay}" HideHeaderOnSingleChild="False" EnableLabelEdit="False" 
                           HotTrackingEnabled="True" TabItemLayout="MultiLine" IsDisableUnloadTabItemExtContent="True"
                           sf:SkinStorage.VisualStyle="Metro" sf:SkinStorage.MetroBrush="{DynamicResource AccentColorBrush}">
             <i:Interaction.Behaviors>
@@ -85,7 +84,9 @@
                 </DataTemplate>
             </sf:TabControlExt.ItemTemplate>
 		</sf:TabControlExt>
-        <GridSplitter Grid.Row="2" HorizontalAlignment="Right" Background="{DynamicResource BlackBrush}" Margin="-1,0" Width="3" />
+        <sf:ProgressRing Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" metro:VisibilityHelper.IsVisible="{Binding IsBusy}" Text="Refreshing..." />
+        
+        <GridSplitter Grid.Row="2" HorizontalAlignment="Right" Background="{DynamicResource AccentColorBrush}" Margin="-1,0" Width="2" />
         <StatusBar Grid.Row="3" ItemsSource="{Binding StatusBarItems}" Grid.ColumnSpan="2">
 			
 		</StatusBar>

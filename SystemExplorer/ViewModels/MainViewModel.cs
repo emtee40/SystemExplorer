@@ -1,4 +1,5 @@
-﻿using Prism.Commands;
+﻿using Prism;
+using Prism.Commands;
 using Prism.Mvvm;
 using Syncfusion.Windows.Tools.Controls;
 using System;
@@ -23,6 +24,10 @@ namespace SystemExplorer.ViewModels {
         ObservableCollection<TabItemViewModelBase> _tabItems = new ObservableCollection<TabItemViewModelBase>();
         ObservableCollection<MenuItemViewModel> _menuItems;
         ObservableCollection<TreeViewItemBase> _treeItems = new ObservableCollection<TreeViewItemBase>();
+        Dictionary<TreeViewItemBase, TabItemViewModelBase> _treeItemsToTabs = new Dictionary<TreeViewItemBase, TabItemViewModelBase>(16);
+        Dictionary<TabItemViewModelBase, TreeViewItemBase> _tabsToTreeItems = new Dictionary<TabItemViewModelBase, TreeViewItemBase>(16);
+
+        public static readonly ICommand DisabledCommand = new DelegateCommand(() => { }, () => false);
 
         public IList<TreeViewItemBase> TreeItems => _treeItems;
 
@@ -43,7 +48,7 @@ namespace SystemExplorer.ViewModels {
 
         public IList<TabItemViewModelBase> TabItems => _tabItems;
 
-        public string Title => Constants.Title + (Helpers.IsAdmin ? " (Administrator) " : (Helpers.IsLocalSystem ? " (System) " : " ")) + Constants.Copyright;
+        public string Title => $"{Constants.Title} {Constants.Version}" + (Helpers.IsAdmin ? " (Administrator) " : (Helpers.IsLocalSystem ? " (System) " : " ")) + Constants.Copyright;
 
         TabItemViewModelBase _selectedTab;
         int _selectedTabIndex;
@@ -55,7 +60,15 @@ namespace SystemExplorer.ViewModels {
 
         public TabItemViewModelBase SelectedTab {
             get => _selectedTab;
-            set => SetProperty(ref _selectedTab, value);
+            set {
+                if (value != _selectedTab) {
+                    if(_selectedTab is IActiveAware inactive)
+                        inactive.IsActive = false;
+                    SetProperty(ref _selectedTab, value);
+                    if (value is IActiveAware active)
+                        active.IsActive = true;
+                }
+            }
         }
 
         public void AddTab(TabItemViewModelBase item, bool select = false) {
@@ -67,67 +80,33 @@ namespace SystemExplorer.ViewModels {
         public ICommand TabClosedCommand => new DelegateCommand<CloseTabEventArgs>(args => {
             var tab = args.TargetTabItem.DataContext as TabItemViewModelBase;
             Debug.Assert(tab != null);
-            RemoveTab(tab);
+            if (tab.CanClose) {
+                RemoveTab(tab);
+            }
         });
 
         public ICommand TabClosingCommand => new DelegateCommand<CancelingRoutedEventArgs>(args => args.Cancel = TabItems.Count <= 1);
 
         public void RemoveTab(TabItemViewModelBase item) {
             TabItems.Remove(item);
+            item.OnClose();
+            var treeItem = _tabsToTreeItems[item];
+            _tabsToTreeItems.Remove(item);
+            _treeItemsToTabs.Remove(treeItem);
         }
-
-        public IEnumerable<MenuItemViewModel> MenuItems => _menuItems ?? (_menuItems = CreateMenuItems());
 
         public ICommand ExitCommand => new DelegateCommand(() => Application.Current.Shutdown());
 
-        private ObservableCollection<MenuItemViewModel> CreateMenuItems() {
-            return new ObservableCollection<MenuItemViewModel> {
-                new MenuItemViewModel {
-                    Text = "_File",
-                    Items = {
-                        new MenuItemViewModel { Text = "E_xit", Command = ExitCommand }
-                    }
-                },
-                new MenuItemViewModel {
-                    Text = "_Edit",
-                    Items = {
-                        new MenuItemViewModel { Text = "_Copy", Icon = Icons.Copy, GestureText = "Ctrl+C" },
-                        new MenuItemViewModel { Text = "C_ut", Icon = Icons.Cut, GestureText = "Ctrl+X" },
-                        new MenuItemViewModel { Text = "_Paste", Icon = Icons.Paste, GestureText = "Ctrl+V" },
-                    }
-                },
-                new MenuItemViewModel {
-                    Text = "_Help",
-                    Items = {
-                        new MenuItemViewModel { Text = "_About System Explorer..." }
-                    }
-                },
-            };
-        }
-
         public void OnImportsSatisfied() {
+            if (_treeItems.Count > 0) {
+                SwitchToTab(SelectedTreeItem);
+            }
         }
 
         TreeViewItemBase _selectedTreeItem;
         public TreeViewItemBase SelectedTreeItem {
             get => _selectedTreeItem;
-            set {
-                if (SetProperty(ref _selectedTreeItem, value)) {
-                    if (value != null) {
-                        TabItemViewModelBase tab;
-                        if (_tabItems.Count == 0) {
-                            tab = value.CreateTabItem();
-                            AddTab(tab, true);
-                        }
-                        else {
-                            int index = SelectedTabIndex;
-                            _tabItems.RemoveAt(index);
-                            _tabItems.Insert(index, value.CreateTabItem());
-                        }
-
-                    }
-                }
-            }
+            set => SetProperty(ref _selectedTreeItem, value);
         }
 
         public void AddTreeItem(TreeViewItemBase item) {
@@ -138,6 +117,33 @@ namespace SystemExplorer.ViewModels {
 
         public void RemoveTreeItem(TreeViewItemBase item) {
             _treeItems.Remove(item);
+        }
+
+        void SwitchToTab(TreeViewItemBase item) {
+            if (_treeItemsToTabs.TryGetValue(item, out var tab)) {
+                SelectedTab = tab;
+            }
+            else {
+                var vm = item.CreateTabItem();
+                if (vm == null)
+                    return;
+
+                AddTab(vm, true);
+                _treeItemsToTabs.Add(item, vm);
+                _tabsToTreeItems.Add(vm, item);
+            }
+        }
+
+        public ICommand SwitchToTabCommand => new DelegateCommand<EventArgs>(args => {
+            Debug.Assert(SelectedTreeItem != null);
+            SwitchToTab(SelectedTreeItem);
+            SelectedTreeItem.IsExpanded = !SelectedTreeItem.IsExpanded;
+        }, args => SelectedTreeItem != null).ObservesProperty(() => SelectedTreeItem);
+
+        bool _isBusy;
+        public bool IsBusy {
+            get => _isBusy;
+            set => SetProperty(ref _isBusy, value);
         }
     }
 }

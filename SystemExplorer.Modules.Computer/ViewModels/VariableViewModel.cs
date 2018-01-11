@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace SystemExplorer.Modules.Computer.ViewModels {
-    class VariableViewModel : BindableBase {
+    sealed class VariableViewModel : BindableBase {
         public string Name { get; }
 
         string _value;

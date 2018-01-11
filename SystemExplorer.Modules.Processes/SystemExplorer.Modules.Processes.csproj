@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{A4552379-0F7A-41E4-9324-811026DC4C02}</ProjectGuid>
+    <ProjectGuid>{7C512B63-3025-4420-B6B9-88566310ECD7}</ProjectGuid>
     <OutputType>library</OutputType>
-    <RootNamespace>SystemExplorer.Modules.Computer</RootNamespace>
-    <AssemblyName>SystemExplorer.Modules.Computer</AssemblyName>
+    <RootNamespace>SystemExplorer.Modules.Processes</RootNamespace>
+    <AssemblyName>SystemExplorer.Modules.Processes</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -22,7 +22,6 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <NoWarn>649,169</NoWarn>
-    <LangVersion>7.2</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -31,7 +30,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <NoWarn>649</NoWarn>
+    <NoWarn>649,169</NoWarn>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="ControlzEx, Version=3.0.2.4, Culture=neutral, processorArchitecture=MSIL">
@@ -78,11 +77,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ViewModels\ComputerViewModel.cs" />
-    <Compile Include="ViewModels\ComputerTreeViewItem.cs" />
-    <Compile Include="DataItem.cs" />
-    <Compile Include="ViewModels\EnvironmentVariablesTreeViewItem.cs" />
-    <Compile Include="ViewModels\EnvironmentVariablesViewModel.cs" />
     <Compile Include="Module.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
@@ -97,12 +91,17 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="ViewModels\VariableViewModel.cs" />
-    <Compile Include="Views\ComputerView.xaml.cs">
-      <DependentUpon>ComputerView.xaml</DependentUpon>
+    <Compile Include="ViewModels\ProcessesTreeViewItem.cs" />
+    <Compile Include="ViewModels\ProcessesViewModel.cs" />
+    <Compile Include="ViewModels\ProcessViewModel.cs" />
+    <Compile Include="ViewModels\ThreadsTreeViewItem.cs" />
+    <Compile Include="ViewModels\ThreadsViewModel.cs" />
+    <Compile Include="ViewModels\ThreadViewModel.cs" />
+    <Compile Include="Views\ProcessesView.xaml.cs">
+      <DependentUpon>ProcessesView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\EnvironmentVariablesView.xaml.cs">
-      <DependentUpon>EnvironmentVariablesView.xaml</DependentUpon>
+    <Compile Include="Views\ThreadsView.xaml.cs">
+      <DependentUpon>ThreadsView.xaml</DependentUpon>
     </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -120,48 +119,29 @@
       <Name>SystemExplorer.Core</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Icons\computer.ico" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Page Include="Resources.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\ComputerView.xaml">
+    <Page Include="Views\ProcessesView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\EnvironmentVariablesView.xaml">
+    <Page Include="Views\ThreadsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Icons\variables.ico" />
+    <Resource Include="Icons\process.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Icons\variables-add.ico" />
+    <Resource Include="Icons\processes.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Icons\variables-delete.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Converters\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Icons\variables-new.ico" />
-    <Resource Include="Icons\variables-properties.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Icons\refresh.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Icons\clock.ico" />
+    <Resource Include="Icons\threads.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <PropertyGroup>
-    <PostBuildEvent>
-    </PostBuildEvent>
-  </PropertyGroup>
 </Project>

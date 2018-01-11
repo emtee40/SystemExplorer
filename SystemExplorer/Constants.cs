@@ -8,5 +8,6 @@ namespace SystemExplorer {
 	class Constants {
 		public const string Title = "System Explorer";
 		public const string Copyright = "(C)2017 by Pavel Yosifovich";
-	}
+        public const string Version = "v0.1";
+    }
 }

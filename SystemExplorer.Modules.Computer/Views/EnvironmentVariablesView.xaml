@@ -37,7 +37,7 @@
                  HorizontalAlignment="Left" Width="300" metro:TextBoxHelper.Watermark="Type to filter" metro:TextBoxHelper.ClearTextButton="True"
                  />
         <sf:SfDataGrid Grid.Row="2" ItemsSource="{Binding Variables}" AllowResizingColumns="True" AllowEditing="True" 
-                       NavigationMode="Cell" Style="{StaticResource SfDataGridStyle}">
+                       NavigationMode="Cell" Style="{StaticResource SfDataGridStyle}" BindableView="{Binding View, Mode=OneWayToSource}">
             <i:Interaction.Behaviors>
                 <b:AutoGridRowHeightBehavior MaxRowHeight="150" />
                 <b:SkinBehavior />

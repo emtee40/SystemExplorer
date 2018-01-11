@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
+using System.ComponentModel.Composition.Hosting;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,6 +21,9 @@ namespace SystemExplorer.Models {
         [Import]
         ITreeManager _treeManager;
 
+        [Import]
+        public CompositionContainer Container { get; private set; }
+
         Dictionary<Type, (Type viewType, IModule module)> _viewModelToViewMapping = new Dictionary<Type, (Type viewType, IModule module)>(8);
         List<(IModule module, ResourceDictionary rd)> _resourceDictionaries = new List<(IModule module, ResourceDictionary rd)>(8);
         List<(IModule module, MenuItemViewModel menu)> _moduleTopLevelMenu = new List<(IModule module, MenuItemViewModel menu)>(8);
@@ -34,10 +38,6 @@ namespace SystemExplorer.Models {
             where TViewModel : TabItemViewModelBase
             where TView : FrameworkElement {
             _viewModelToViewMapping.Add(typeof(TViewModel), (typeof(TView), module));
-        }
-
-        public void AddTopLevelMenuItem(MenuItemViewModel menuItem, IModule module) {
-            
         }
 
         public void AddTreeViewItem(TreeViewItemBase treeViewItem, IModule module) {

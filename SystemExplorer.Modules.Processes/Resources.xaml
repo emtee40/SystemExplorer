@@ -1,0 +1,16 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:vm="clr-namespace:SystemExplorer.Modules.Processes.ViewModels"
+                    xmlns:view="clr-namespace:SystemExplorer.Modules.Processes.Views"
+                    >
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="pack://application:,,,/SystemExplorer.Core;component/Resources/Common.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+    <DataTemplate DataType="{x:Type vm:ProcessesViewModel}">
+        <view:ProcessesView />
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type vm:ThreadsViewModel}">
+        <view:ThreadsView />
+    </DataTemplate>
+
+</ResourceDictionary>
