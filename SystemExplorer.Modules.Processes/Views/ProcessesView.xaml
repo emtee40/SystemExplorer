@@ -4,9 +4,68 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SystemExplorer.Modules.Processes.Views"
+             xmlns:sf="http://schemas.syncfusion.com/wpf"
+             xmlns:metro="http://metro.mahapps.com/winfx/xaml/controls"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-            
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <TextBox Margin="0,2" Grid.Row="1" Text="{Binding FilterText, Delay=200, UpdateSourceTrigger=PropertyChanged}"
+                 HorizontalAlignment="Left" Width="300" metro:TextBoxHelper.Watermark="Type to filter" metro:TextBoxHelper.ClearTextButton="True" />
+
+        <sf:SfDataGrid Grid.Row="2" ItemsSource="{Binding Processes}" Style="{StaticResource SfDataGridStyle}" IsGroupDropAreaExpanded="False" ShowGroupDropArea="True"
+                       BindableView="{Binding View, Mode=OneWayToSource}">
+            <sf:SfDataGrid.Columns>
+                <sf:GridTextColumn HeaderText="PID" TextAlignment="Center" MappingName="Info.ProcessId" ColumnSizer="SizeToHeader" />
+                <sf:GridTextColumn HeaderText="Name" TextAlignment="Left" MappingName="Info.ImageName" ColumnSizer="SizeToCells" />
+                <sf:GridTextColumn HeaderText="CPU Time" TextAlignment="Right" MappingName="TotalTime" ColumnSizer="SizeToCells">
+                    <sf:GridTextColumn.CellStyle>
+                        <Style TargetType="{x:Type sf:GridCell}">
+                            <Setter Property="Background" Value="{Binding CpuTimeBackground}" />
+                        </Style>
+                    </sf:GridTextColumn.CellStyle>
+                </sf:GridTextColumn>
+                <sf:GridTextColumn HeaderText="Kernel Time" TextAlignment="Right" MappingName="KernelTime" ColumnSizer="SizeToCells">
+                    <sf:GridTextColumn.CellStyle>
+                        <Style TargetType="{x:Type sf:GridCell}">
+                            <Setter Property="Background" Value="{Binding KernelTimeBackground}" />
+                        </Style>
+                    </sf:GridTextColumn.CellStyle>
+                </sf:GridTextColumn>
+                <sf:GridTextColumn HeaderText="User Time" TextAlignment="Right" MappingName="UserTime" ColumnSizer="SizeToCells">
+                    <sf:GridTextColumn.CellStyle>
+                        <Style TargetType="{x:Type sf:GridCell}">
+                            <Setter Property="Background" Value="{Binding UserTimeBackground}" />
+                        </Style>
+                    </sf:GridTextColumn.CellStyle>
+                </sf:GridTextColumn>
+                <sf:GridTextColumn HeaderText="Threads" TextAlignment="Center" MappingName="ThreadCount" ColumnSizer="SizeToHeader"  />
+                <sf:GridTextColumn HeaderText="Handles" TextAlignment="Center" MappingName="HandleCount" ColumnSizer="SizeToHeader"  />
+                <sf:GridNumericColumn NumberGroupSeparator="," NumberGroupSizes="3" HeaderText="Working Set" TextAlignment="Right" MappingName="WorkingSetSize" 
+                                      ColumnSizer="SizeToHeader" ValueBinding="{Binding WorkingSetSize, StringFormat=\{0\} K}" NumberDecimalDigits="0">
+                    <sf:GridNumericColumn.CellStyle>
+                        <Style TargetType="{x:Type sf:GridCell}">
+                            <Setter Property="Background" Value="{Binding WorkingSetSizeBackground}" />
+                        </Style>
+                    </sf:GridNumericColumn.CellStyle>
+
+                </sf:GridNumericColumn>
+                <sf:GridNumericColumn HeaderText="Private Working Set" TextAlignment="Right" MappingName="PrivateWorkingSetSize" ColumnSizer="SizeToHeader"  
+                                   ValueBinding="{Binding PrivateWorkingSetSize, StringFormat=\{0\} K}" NumberGroupSeparator="," NumberGroupSizes="3" NumberDecimalDigits="0">
+                    <sf:GridNumericColumn.CellStyle>
+                        <Style TargetType="{x:Type sf:GridCell}">
+                            <Setter Property="Background" Value="{Binding PrivateWorkingSetSizeBackground}" />
+                        </Style>
+                    </sf:GridNumericColumn.CellStyle>
+
+                </sf:GridNumericColumn>
+
+            </sf:SfDataGrid.Columns>
+        </sf:SfDataGrid>
     </Grid>
 </UserControl>

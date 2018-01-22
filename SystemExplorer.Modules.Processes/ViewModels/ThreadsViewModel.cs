@@ -35,8 +35,8 @@ namespace SystemExplorer.Modules.Processes.ViewModels {
         [Import]
         ITabManager _tabManager;
 
-        public void Refresh() {
-            _threads = SystemInformation.EnumThreads().Select(th => new ThreadViewModel(_processes, th)).ToArray();
+        public async void Refresh() {
+            _threads = await Task.Run(() => SystemInformation.EnumThreads().Select(th => new ThreadViewModel(_processes, th)).ToArray());
             RaisePropertyChanged(nameof(Threads));
             _tabManager.IsBusy = false;
         }

@@ -20,7 +20,7 @@
         <sf:SfDataGrid Grid.Row="2" ItemsSource="{Binding Threads, IsAsync=True}" Style="{StaticResource SfDataGridStyle}" IsGroupDropAreaExpanded="False" ShowGroupDropArea="True"
                        BindableView="{Binding View, Mode=OneWayToSource}">
             <sf:SfDataGrid.Columns>
-                <sf:GridTemplateColumn HeaderText="Thread ID" MappingName="Id">
+                <sf:GridTemplateColumn HeaderText="Thread ID" MappingName="Id" TextAlignment="Center">
                     <sf:GridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
@@ -30,8 +30,13 @@
                         </DataTemplate>
                     </sf:GridTemplateColumn.CellTemplate>
                 </sf:GridTemplateColumn>
-                <sf:GridTextColumn HeaderText="Process ID" MappingName="ProcessId" />
-                <sf:GridTextColumn HeaderText="Process Name" MappingName="ProcessName" />
+                <sf:GridTextColumn HeaderText="Process ID" MappingName="ProcessId" ValueBinding="{Binding ProcessId, Mode=OneTime}" TextAlignment="Center" />
+                <sf:GridTextColumn HeaderText="Process Name" MappingName="ProcessName" ColumnSizer="SizeToCells" />
+                <sf:GridTextColumn HeaderText="Creation Time" MappingName="CreateTime" ValueBinding="{Binding CreateTime, Mode=OneTime, StringFormat=dd MMM HH:mm:ss.fff}" TextAlignment="Right" />
+                <sf:GridTimeSpanColumn HeaderText="CPU Time" MappingName="TotalTime" TextAlignment="Right" ValueBinding="{Binding TotalTime, StringFormat=c}" AllowGrouping="False" AllowNull="True" />
+                <sf:GridTimeSpanColumn HeaderText="User Time" MappingName="UserTime" TextAlignment="Right" ValueBinding="{Binding UserTime, StringFormat=c}" AllowGrouping="False" AllowNull="True" />
+                <sf:GridTimeSpanColumn HeaderText="Kernel Time" MappingName="KernelTime" TextAlignment="Right" ValueBinding="{Binding KernelTime, StringFormat=c}" AllowGrouping="False" AllowNull="True"/>
+                <sf:GridTextColumn HeaderText="Base Priority" MappingName="BasePriority" TextAlignment="Center" />
             </sf:SfDataGrid.Columns>
         </sf:SfDataGrid>
     </Grid>

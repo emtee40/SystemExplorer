@@ -70,17 +70,29 @@
 		<sf:TabControlExt Grid.Row="2" ItemsSource="{Binding TabItems}" SelectedItem="{Binding SelectedTab, Mode=TwoWay}" CloseButtonType="Individual" Grid.Column="1" 
                           SelectedIndex="{Binding SelectedTabIndex, Mode=TwoWay}" HideHeaderOnSingleChild="False" EnableLabelEdit="False" 
                           HotTrackingEnabled="True" TabItemLayout="MultiLine" IsDisableUnloadTabItemExtContent="True"
-                          sf:SkinStorage.VisualStyle="Metro" sf:SkinStorage.MetroBrush="{DynamicResource AccentColorBrush}">
+                          TabItemSelectedBackground="{DynamicResource AccentColorBrush}" TabItemHoverBackground="{DynamicResource AccentColorBrush2}"
+                          sf:SkinStorage.MetroBrush="{DynamicResource AccentColorBrush}">
             <i:Interaction.Behaviors>
                 <z:EventToCommand EventName="TabClosed" Command="{Binding TabClosedCommand}" />
                 <z:EventToCommand EventName="TabClosing" Command="{Binding TabClosingCommand}" />
             </i:Interaction.Behaviors>
+            <sf:TabControlExt.ItemContainerStyle>
+                <Style TargetType="{x:Type sf:TabItemExt}">
+                    <Setter Property="Background" Value="{DynamicResource AccentColorBrush4}" />
+                    <Setter Property="Foreground" Value="{DynamicResource BlackBrush}" />
+                </Style>
+            </sf:TabControlExt.ItemContainerStyle>
             <sf:TabControlExt.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
                         <Image Source="{Binding Icon}" Width="16" Height="16" />
-                        <TextBlock Text="{Binding Text}" Margin="4,0,0,0" VerticalAlignment="Center" />
+                        <TextBlock Text="{Binding Text}" Margin="4,0,0,0" VerticalAlignment="Center" x:Name="tb" />
                     </StackPanel>
+                    <DataTemplate.Triggers>
+                        <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type sf:TabItemExt}}}" Value="True">
+                            <Setter Property="Foreground" Value="{DynamicResource WhiteBrush}" TargetName="tb" />
+                        </DataTrigger>
+                    </DataTemplate.Triggers>
                 </DataTemplate>
             </sf:TabControlExt.ItemTemplate>
 		</sf:TabControlExt>
