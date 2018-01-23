@@ -22,6 +22,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <NoWarn>649,169</NoWarn>
+    <LangVersion>7.2</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -31,6 +32,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <NoWarn>649,169</NoWarn>
+    <LangVersion>7.2</LangVersion>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="ControlzEx, Version=3.0.2.4, Culture=neutral, processorArchitecture=MSIL">
@@ -42,11 +44,18 @@
     <Reference Include="Prism, Version=6.3.0.0, Culture=neutral, PublicKeyToken=40ee6c3a2184dc59, processorArchitecture=MSIL">
       <HintPath>..\packages\Prism.Core.6.3.0\lib\net45\Prism.dll</HintPath>
     </Reference>
-    <Reference Include="Syncfusion.Data.WPF, Version=15.4460.0.20, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89" />
-    <Reference Include="Syncfusion.SfGrid.WPF, Version=15.4460.0.20, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89" />
-    <Reference Include="Syncfusion.SfSkinManager.Wpf, Version=15.4460.0.20, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89" />
-    <Reference Include="Syncfusion.Shared.Wpf, Version=15.4460.0.20, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89" />
-    <Reference Include="Syncfusion.Themes.Metro.Wpf, Version=15.4460.0.20, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89" />
+    <Reference Include="Syncfusion.Data.WPF, Version=15.4460.0.20, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
+      <HintPath>..\packages\Syncfusion.Data.WPF46.15.4.0.20\lib\net46\Syncfusion.Data.WPF.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Syncfusion.SfGrid.WPF, Version=15.4460.0.20, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
+      <HintPath>..\packages\Syncfusion.SfGrid.WPF46.15.4.0.20\lib\net46\Syncfusion.SfGrid.WPF.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Syncfusion.Shared.Wpf, Version=15.4460.0.20, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
+      <HintPath>..\packages\Syncfusion.Shared.WPF46.15.4.0.20\lib\net46\Syncfusion.Shared.Wpf.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Data" />
@@ -69,8 +78,8 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
-    <Reference Include="Zodiacon.ManagedWindows.Core, Version=1.0.6596.27345, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Zodiacon.ManagedWindows.Core.0.2.1\lib\net45\Zodiacon.ManagedWindows.Core.dll</HintPath>
+    <Reference Include="Zodiacon.ManagedWindows.Core, Version=1.0.6597.21000, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Zodiacon.ManagedWindows.Core.0.2.2\lib\net45\Zodiacon.ManagedWindows.Core.dll</HintPath>
     </Reference>
     <Reference Include="Zodiacon.ManagedWindows.Processes, Version=1.0.6596.18762, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Zodiacon.ManagedWindows.Processes.0.2.2\lib\net45\Zodiacon.ManagedWindows.Processes.dll</HintPath>
@@ -80,6 +89,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Converters\ProcessToRowBackgroundConverter.cs" />
     <Compile Include="Module.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
@@ -122,7 +132,11 @@
       <Name>SystemExplorer.Core</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Icons\ThreadStates\Waiting.ico" />
+    <Resource Include="Icons\ThreadStates\Ready.ico" />
+    <Resource Include="Icons\ThreadStates\Terminated.ico" />
+  </ItemGroup>
   <ItemGroup>
     <Page Include="Resources.xaml">
       <SubType>Designer</SubType>
@@ -145,6 +159,21 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Icons\threads.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\ThreadStates\Initialized.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\ThreadStates\Transition.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\ThreadStates\DeferredReady.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\ThreadStates\Running.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\ThreadStates\StandBy.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

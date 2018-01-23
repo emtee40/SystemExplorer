@@ -50,6 +50,7 @@
                     <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}" />
                     <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
                     <Setter Property="IsEditable" Value="False" />
+                    <Setter Property="FontSize" Value="12" />
                     <Setter Property="ItemsSource" Value="{Binding Items}" />
                     <Setter Property="ContextMenu">
                         <Setter.Value>

@@ -14,29 +14,50 @@
             <RowDefinition Height="Auto" />
             <RowDefinition />
         </Grid.RowDefinitions>
-        <TextBox Margin="0,2" Grid.Row="1" Text="{Binding FilterText, Delay=200, UpdateSourceTrigger=PropertyChanged}"
+        <TextBox Margin="0,2" Grid.Row="1" Text="{Binding FilterText, Delay=200, UpdateSourceTrigger=PropertyChanged}" 
                  HorizontalAlignment="Left" Width="300" metro:TextBoxHelper.Watermark="Type to filter" metro:TextBoxHelper.ClearTextButton="True" />
 
         <sf:SfDataGrid Grid.Row="2" ItemsSource="{Binding Threads, IsAsync=True}" Style="{StaticResource SfDataGridStyle}" IsGroupDropAreaExpanded="False" ShowGroupDropArea="True"
-                       BindableView="{Binding View, Mode=OneWayToSource}">
+                       BindableView="{Binding View, Mode=OneWayToSource}" AllowGrouping="False" LiveDataUpdateMode="AllowDataShaping" >
             <sf:SfDataGrid.Columns>
-                <sf:GridTemplateColumn HeaderText="Thread ID" MappingName="Id" TextAlignment="Center">
+                <sf:GridTemplateColumn HeaderText="Thread ID" MappingName="Info.ThreadId" TextAlignment="Center" ColumnSizer="SizeToHeader">
                     <sf:GridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
-                                <!--<Image Source="{Binding State}" Width="16" Height="16" />-->
-                                <TextBlock Text="{Binding Id}" Margin="6,0,0,0" />
+                                <Image Source="{Binding Icon}" Width="16" Height="16" />
+                                <TextBlock Text="{Binding Info.ThreadId}" Margin="6,0,0,0" />
                             </StackPanel>
                         </DataTemplate>
                     </sf:GridTemplateColumn.CellTemplate>
                 </sf:GridTemplateColumn>
-                <sf:GridTextColumn HeaderText="Process ID" MappingName="ProcessId" ValueBinding="{Binding ProcessId, Mode=OneTime}" TextAlignment="Center" />
-                <sf:GridTextColumn HeaderText="Process Name" MappingName="ProcessName" ColumnSizer="SizeToCells" />
+                <sf:GridTextColumn HeaderText="State" MappingName="State" TextAlignment="Left" AllowGrouping="True" ColumnSizer="SizeToCells" />
+                <sf:GridTextColumn HeaderText="Wait Reason" MappingName="WaitReason" TextAlignment="Left" AllowGrouping="True" ColumnSizer="SizeToCells" />
+                <sf:GridTextColumn HeaderText="Process ID" MappingName="ProcessId" ValueBinding="{Binding ProcessId, Mode=OneTime}" TextAlignment="Center" AllowGrouping="True" />
+                <sf:GridTextColumn HeaderText="Process Name" MappingName="ProcessName" ColumnSizer="SizeToCells" AllowGrouping="True" />
                 <sf:GridTextColumn HeaderText="Creation Time" MappingName="CreateTime" ValueBinding="{Binding CreateTime, Mode=OneTime, StringFormat=dd MMM HH:mm:ss.fff}" TextAlignment="Right" />
-                <sf:GridTimeSpanColumn HeaderText="CPU Time" MappingName="TotalTime" TextAlignment="Right" ValueBinding="{Binding TotalTime, StringFormat=c}" AllowGrouping="False" AllowNull="True" />
-                <sf:GridTimeSpanColumn HeaderText="User Time" MappingName="UserTime" TextAlignment="Right" ValueBinding="{Binding UserTime, StringFormat=c}" AllowGrouping="False" AllowNull="True" />
-                <sf:GridTimeSpanColumn HeaderText="Kernel Time" MappingName="KernelTime" TextAlignment="Right" ValueBinding="{Binding KernelTime, StringFormat=c}" AllowGrouping="False" AllowNull="True"/>
-                <sf:GridTextColumn HeaderText="Base Priority" MappingName="BasePriority" TextAlignment="Center" />
+                <sf:GridTextColumn HeaderText="CPU Time" MappingName="TotalTime" TextAlignment="Right" ValueBinding="{Binding TotalTime, StringFormat=c}" >
+                    <sf:GridTextColumn.CellStyle>
+                        <Style TargetType="{x:Type sf:GridCell}">
+                            <Setter Property="Background" Value="{Binding CpuTimeBackground}" />
+                        </Style>
+                    </sf:GridTextColumn.CellStyle>
+                </sf:GridTextColumn>
+                <sf:GridTextColumn HeaderText="User Time" MappingName="UserTime" TextAlignment="Right" ValueBinding="{Binding UserTime, StringFormat=c}" >
+                    <sf:GridTextColumn.CellStyle>
+                        <Style TargetType="{x:Type sf:GridCell}">
+                            <Setter Property="Background" Value="{Binding UserTimeBackground}" />
+                        </Style>
+                    </sf:GridTextColumn.CellStyle>
+                </sf:GridTextColumn>
+                <sf:GridTextColumn HeaderText="Kernel Time" MappingName="KernelTime" TextAlignment="Right" ValueBinding="{Binding KernelTime, StringFormat=c}" >
+                    <sf:GridTextColumn.CellStyle>
+                        <Style TargetType="{x:Type sf:GridCell}">
+                            <Setter Property="Background" Value="{Binding KernelTimeBackground}" />
+                        </Style>
+                    </sf:GridTextColumn.CellStyle>
+                </sf:GridTextColumn>
+                <sf:GridTextColumn HeaderText="Priority" MappingName="Priority" TextAlignment="Center" ColumnSizer="SizeToHeader" />
+                <sf:GridTextColumn HeaderText="Base Priority" MappingName="BasePriority" TextAlignment="Center" ColumnSizer="SizeToHeader" />
             </sf:SfDataGrid.Columns>
         </sf:SfDataGrid>
     </Grid>
