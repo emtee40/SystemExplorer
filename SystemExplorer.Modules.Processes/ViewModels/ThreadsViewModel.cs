@@ -29,7 +29,7 @@ namespace SystemExplorer.Modules.Processes.ViewModels {
         ObservableCollection<ThreadViewModel> _threads;
         IReadOnlyList<ThreadExtendedInformation> _threadsRaw;
         List<(ThreadViewModel thread, DateTime time)> _deadThreads = new List<(ThreadViewModel, DateTime)>(4);
-        DispatcherTimer _timer = new DispatcherTimer(DispatcherPriority.Background) { Interval = TimeSpan.FromSeconds(2) };
+        DispatcherTimer _timer = new DispatcherTimer(DispatcherPriority.Background) { Interval = TimeSpan.FromSeconds(1) };
         static ThreadComparer _comparer = new ThreadComparer();
 
         public ThreadsViewModel() {
@@ -75,23 +75,25 @@ namespace SystemExplorer.Modules.Processes.ViewModels {
                 var vm = _threadMap[key];
                 vm.IsDead = true;
                 _deadThreads.Add((vm, DateTime.UtcNow));
-                //_processes.Remove(vm);
                 vm.Dispose();
                 _threadMap.Remove(key);
             }
 
             _threadsRaw = threads;
 
+            var dispatcher = Dispatcher.CurrentDispatcher;
             foreach (var thread in threads) {
                 if (_threadMap.TryGetValue((thread.ThreadId, thread.CreateTime), out var vm)) {
-                    // process still exists, refresh it
-                    if (!vm.IsDead)
+                    // thread still exists, refresh it
+                    if (!vm.IsDead) {
                         vm.Update(thread);
+                    }
                 }
                 else {
                     // new process, add
                     vm = new ThreadViewModel(thread);
                     _threads.Add(vm);
+
                     _threadMap.Add((thread.ThreadId, thread.CreateTime), vm);
                     vm.IsCreated = true;
                 }

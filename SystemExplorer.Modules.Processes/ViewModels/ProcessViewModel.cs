@@ -15,6 +15,7 @@ namespace SystemExplorer.Modules.Processes.ViewModels {
         static Brush _activityBrush = new SolidColorBrush(Colors.Red) { Opacity = .5 };
         static Brush _decreaseActivityBrush = new SolidColorBrush(Colors.Green) { Opacity = .5 };
         readonly NativeProcess _nativeProcess;
+        static int _totalProcessors = Environment.ProcessorCount;
 
         public ProcessExtendedInformation Info { get; private set; }
 
@@ -33,6 +34,30 @@ namespace SystemExplorer.Modules.Processes.ViewModels {
         public bool? IsImmersive => _nativeProcess?.IsImmersive;
         public ProcessPriorityClass? PriorityClass => _nativeProcess?.PriorityClass;
 
+        long _lastTicks, _currentTicks;
+        TimeSpan _lastTotal;
+        double _cpu;
+        public double CPU => _cpu;
+
+        public void CalculateCPU() {
+            if (_lastTicks == 0) {
+                _lastTicks = _currentTicks;
+                _lastTotal = Info.KernelTime + Info.UserTime;
+                _cpu = 0;
+                return;
+            }
+
+            var diff = _currentTicks - _lastTicks;
+            double cpu = 0;
+            if (diff != 0) {
+                cpu = (Info.UserTime + Info.KernelTime - _lastTotal).Ticks * 100.0 / diff / _totalProcessors;
+            }
+
+            _lastTicks = _currentTicks;
+            _lastTotal = Info.KernelTime + Info.UserTime;
+            _cpu = cpu;
+        }
+
         public Brush CpuTimeBackground { get => _cpuTimeBackground; set => SetProperty(ref _cpuTimeBackground, value); }
         public Brush KernelTimeBackground { get => _kernelTimeBackground; set => SetProperty(ref _kernelTimeBackground, value); }
         public Brush UserTimeBackground { get => _userTimeBackground; set => SetProperty(ref _userTimeBackground, value); }
@@ -41,9 +66,11 @@ namespace SystemExplorer.Modules.Processes.ViewModels {
 
         public ProcessViewModel Self => this;
 
-        internal void Update(ProcessExtendedInformation info) {
+        internal void Update(ProcessExtendedInformation info, long time) {
             var oldInfo = Info;
             Info = info;
+            _currentTicks = time;
+
             RaisePropertyChanged(nameof(TotalTime));
             RaisePropertyChanged(nameof(HandleCount));
             RaisePropertyChanged(nameof(KernelTime));
@@ -51,6 +78,9 @@ namespace SystemExplorer.Modules.Processes.ViewModels {
             RaisePropertyChanged(nameof(ThreadCount));
             RaisePropertyChanged(nameof(WorkingSetSize));
             RaisePropertyChanged(nameof(PrivateWorkingSetSize));
+            CalculateCPU();
+
+            RaisePropertyChanged(nameof(CPU));
 
             CpuTimeBackground = SignToBrush(TotalTime.Ticks - (oldInfo.KernelTime + oldInfo.UserTime).Ticks);
             KernelTimeBackground = SignToBrush(KernelTime.Ticks - oldInfo.KernelTime.Ticks);

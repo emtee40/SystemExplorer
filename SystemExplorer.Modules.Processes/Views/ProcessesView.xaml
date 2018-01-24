@@ -35,8 +35,9 @@
                 </Style>
             </sf:SfDataGrid.RowStyle>
             <sf:SfDataGrid.Columns>
+                <sf:GridTextColumn HeaderText="Name" TextAlignment="Left" MappingName="Info.ImageName" ColumnSizer="SizeToCells" AllowFiltering="True" />
                 <sf:GridTextColumn HeaderText="PID" TextAlignment="Center" MappingName="Info.ProcessId" ColumnSizer="SizeToHeader" />
-                <sf:GridTextColumn HeaderText="Name" TextAlignment="Left" MappingName="Info.ImageName" ColumnSizer="SizeToCells" />
+                <sf:GridTextColumn HeaderText="CPU %" TextAlignment="Center" MappingName="CPU" ValueBinding="{Binding CPU, StringFormat=\{0:G4\}}" ColumnSizer="SizeToHeader" />
                 <sf:GridTextColumn HeaderText="CPU Time" TextAlignment="Right" MappingName="TotalTime" ColumnSizer="SizeToCells">
                     <sf:GridTextColumn.CellStyle>
                         <Style TargetType="{x:Type sf:GridCell}">
@@ -78,7 +79,6 @@
                     </sf:GridNumericColumn.CellStyle>
 
                 </sf:GridNumericColumn>
-
             </sf:SfDataGrid.Columns>
         </sf:SfDataGrid>
     </Grid>
