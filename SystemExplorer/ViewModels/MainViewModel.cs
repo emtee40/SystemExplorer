@@ -9,9 +9,11 @@ using System.ComponentModel.Composition;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Threading;
 using SystemExplorer.Core;
 using SystemExplorer.Interfaces;
 using SystemExplorer.Models;
@@ -44,6 +46,7 @@ namespace SystemExplorer.ViewModels {
         ISystemExplorerInternal ExplorerInternal;
 
         public MainViewModel() {
+            Thread.CurrentThread.Priority = ThreadPriority.Highest;
         }
 
         public IList<TabItemViewModelBase> TabItems => _tabItems;
@@ -62,7 +65,7 @@ namespace SystemExplorer.ViewModels {
             get => _selectedTab;
             set {
                 if (value != _selectedTab) {
-                    if(_selectedTab is IActiveAware inactive)
+                    if (_selectedTab is IActiveAware inactive)
                         inactive.IsActive = false;
                     SetProperty(ref _selectedTab, value);
                     if (value is IActiveAware active)
@@ -119,12 +122,12 @@ namespace SystemExplorer.ViewModels {
             _treeItems.Remove(item);
         }
 
-        void SwitchToTab(TreeViewItemBase item) {
+        async void SwitchToTab(TreeViewItemBase item) {
             if (_treeItemsToTabs.TryGetValue(item, out var tab)) {
                 SelectedTab = tab;
             }
             else {
-                var vm = item.CreateTabItem();
+                var vm = await Dispatcher.CurrentDispatcher.InvokeAsync(() => item.CreateTabItem(), DispatcherPriority.Background);
                 if (vm == null)
                     return;
 

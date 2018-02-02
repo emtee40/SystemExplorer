@@ -25,6 +25,7 @@ namespace SystemExplorer.Modules.Processes {
             Explorer.AddResourceDictionary(resources, this);
             Explorer.AddTreeViewItem(Container.GetExportedValue<ProcessesTreeViewItem>(), this);
             Explorer.AddTreeViewItem(Container.GetExportedValue<ThreadsTreeViewItem>(), this);
+            Explorer.AddTreeViewItem(Container.GetExportedValue<HandlesTreeViewItem>(), this);
             return true;
         }
     }

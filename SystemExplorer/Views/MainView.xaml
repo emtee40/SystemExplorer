@@ -97,7 +97,7 @@
                 </DataTemplate>
             </sf:TabControlExt.ItemTemplate>
 		</sf:TabControlExt>
-        <sf:ProgressRing Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" metro:VisibilityHelper.IsVisible="{Binding IsBusy}" Text="Refreshing..." />
+        <metro:ProgressRing Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" IsActive="{Binding IsBusy}" IsLarge="True" />
         
         <GridSplitter Grid.Row="2" HorizontalAlignment="Right" Background="{DynamicResource AccentColorBrush}" Margin="-1,0" Width="2" />
         <StatusBar Grid.Row="3" ItemsSource="{Binding StatusBarItems}" Grid.ColumnSpan="2">

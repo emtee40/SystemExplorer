@@ -4,11 +4,18 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SystemExplorer.Modules.Processes.Views"
+             xmlns:core="clr-namespace:SystemExplorer.Core.Controls;assembly=SystemExplorer.Core"
              xmlns:sf="http://schemas.syncfusion.com/wpf"
+             xmlns:b="clr-namespace:SystemExplorer.Core.Behaviors;assembly=SystemExplorer.Core"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:metro="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:z="http://zodiacon.wpf/2016"
              xmlns:conv="clr-namespace:SystemExplorer.Modules.Processes.Converters"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <z:BindingProxy x:Key="Proxy" Data="{Binding}" />
+    </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -20,39 +27,51 @@
         </Grid.Resources>
 
         <ToolBar>
+            <sf:DropDownButtonAdv Label="Columns" SmallIcon="../icons/table_column.ico" BorderThickness="0" IconWidth="20" IconHeight="20"
+                                  sf:SkinStorage.VisualStyle="Metro" sf:SkinStorage.MetroBrush="{DynamicResource AccentColorBrush}" >
+                <core:GridColumnChooser ColumnManager="{Binding Columns}" Padding="8" BorderBrush="{DynamicResource AccentColorBrush}" BorderThickness="1" 
+                                        Title="Select Columns to View" />
+            </sf:DropDownButtonAdv>
+            <Separator />
             <Button Command="{Binding FindCommand}" CommandParameter="{Binding ElementName=_dataGrid}">
-                <TextBlock Text="Find..." />
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="../icons/search.ico" Width="20" Height="20" />
+                    <TextBlock Text="Search" VerticalAlignment="Center" Margin="4,0,0,0" />
+                </StackPanel>
             </Button>
         </ToolBar>
         <TextBox Margin="0,2" Grid.Row="1" Text="{Binding FilterText, Delay=200, UpdateSourceTrigger=PropertyChanged}"
                  HorizontalAlignment="Left" Width="300" metro:TextBoxHelper.Watermark="Type to filter" metro:TextBoxHelper.ClearTextButton="True" />
 
         <sf:SfDataGrid Grid.Row="2" ItemsSource="{Binding Processes}" Style="{StaticResource SfDataGridStyle}" IsGroupDropAreaExpanded="False" ShowGroupDropArea="True"
-                       BindableView="{Binding View, Mode=OneWayToSource}" LiveDataUpdateMode="AllowDataShaping" AllowGrouping="False" x:Name="_dataGrid">
+                       BindableView="{Binding View, Mode=OneWayToSource}" LiveDataUpdateMode="AllowDataShaping" AllowGrouping="False" x:Name="_dataGrid" AllowDraggingColumns="True" >
+            <i:Interaction.Behaviors>
+                <b:ColumnChooserBehavior ColumnManager="{Binding Columns}" />
+            </i:Interaction.Behaviors>
             <sf:SfDataGrid.RowStyle>
                 <Style TargetType="{x:Type sf:VirtualizingCellsControl}">
                     <Setter Property="Background" Value="{Binding Self, Converter={StaticResource ProcessToRowBackground}}" />
                 </Style>
             </sf:SfDataGrid.RowStyle>
             <sf:SfDataGrid.Columns>
-                <sf:GridTextColumn HeaderText="Name" TextAlignment="Left" MappingName="Info.ImageName" ColumnSizer="SizeToCells" AllowFiltering="True" />
-                <sf:GridTextColumn HeaderText="PID" TextAlignment="Center" MappingName="Info.ProcessId" ColumnSizer="SizeToHeader" />
+                <sf:GridTextColumn HeaderText="Name" TextAlignment="Left" MappingName="Info.ImageName" ColumnSizer="SizeToCells" AllowFiltering="True" AllowDragging="False" />
+                <sf:GridTextColumn HeaderText="Process ID" TextAlignment="Center" MappingName="Info.ProcessId" ColumnSizer="SizeToHeader" AllowDragging="False" />
                 <sf:GridTextColumn HeaderText="CPU %" TextAlignment="Center" MappingName="CPU" ValueBinding="{Binding CPU, StringFormat=\{0:G4\}}" ColumnSizer="SizeToHeader" />
-                <sf:GridTextColumn HeaderText="CPU Time" TextAlignment="Right" MappingName="TotalTime" ColumnSizer="SizeToCells">
+                <sf:GridTextColumn HeaderText="CPU Time" TextAlignment="Right" MappingName="TotalTime" ColumnSizer="SizeToCells" >
                     <sf:GridTextColumn.CellStyle>
                         <Style TargetType="{x:Type sf:GridCell}">
                             <Setter Property="Background" Value="{Binding CpuTimeBackground}" />
                         </Style>
                     </sf:GridTextColumn.CellStyle>
                 </sf:GridTextColumn>
-                <sf:GridTextColumn HeaderText="Kernel Time" TextAlignment="Right" MappingName="KernelTime" ColumnSizer="SizeToCells">
+                <sf:GridTextColumn HeaderText="Kernel Time" TextAlignment="Right" MappingName="KernelTime" ColumnSizer="SizeToCells" >
                     <sf:GridTextColumn.CellStyle>
                         <Style TargetType="{x:Type sf:GridCell}">
                             <Setter Property="Background" Value="{Binding KernelTimeBackground}" />
                         </Style>
                     </sf:GridTextColumn.CellStyle>
                 </sf:GridTextColumn>
-                <sf:GridTextColumn HeaderText="User Time" TextAlignment="Right" MappingName="UserTime" ColumnSizer="SizeToCells">
+                <sf:GridTextColumn HeaderText="User Time" TextAlignment="Right" MappingName="UserTime" ColumnSizer="SizeToCells" >
                     <sf:GridTextColumn.CellStyle>
                         <Style TargetType="{x:Type sf:GridCell}">
                             <Setter Property="Background" Value="{Binding UserTimeBackground}" />
@@ -61,6 +80,7 @@
                 </sf:GridTextColumn>
                 <sf:GridTextColumn HeaderText="Threads" TextAlignment="Center" MappingName="ThreadCount" ColumnSizer="SizeToHeader"  />
                 <sf:GridTextColumn HeaderText="Handles" TextAlignment="Center" MappingName="HandleCount" ColumnSizer="SizeToHeader"  />
+                <sf:GridTextColumn HeaderText="Base Priority" TextAlignment="Center" MappingName="BasePriority" ColumnSizer="SizeToHeader" AllowDragging="True" AllowGrouping="True" />
                 <sf:GridNumericColumn NumberGroupSeparator="," NumberGroupSizes="3" HeaderText="Working Set" TextAlignment="Right" MappingName="WorkingSetSize" 
                                       ColumnSizer="SizeToHeader" ValueBinding="{Binding WorkingSetSize, StringFormat=\{0\} K}" NumberDecimalDigits="0">
                     <sf:GridNumericColumn.CellStyle>

@@ -33,15 +33,22 @@ namespace SystemExplorer.Modules.Processes.ViewModels {
         IReadOnlyList<ProcessExtendedInformation> _processesRaw;
         List<(ProcessViewModel process, DateTime time)> _deadProcesses = new List<(ProcessViewModel, DateTime)>(4);
         DispatcherTimer _timer = new DispatcherTimer(DispatcherPriority.Background) { Interval = TimeSpan.FromSeconds(1) };
+
+        public ColumnManager Columns { get; } = new ColumnManager();
+
         static ProcessComparer _comparer = new ProcessComparer();
 
         public IList<ProcessViewModel> Processes => _processes;
 
         public ProcessesViewModel() {
             Icon = Helpers.ToPackUri(Assembly.GetExecutingAssembly(), "/icons/processes.ico").ToString();
+
             _processesRaw = SystemInformation.EnumProcessesAndThreads();
             _processes = new ObservableCollection<ProcessViewModel>(_processesRaw.Select(process => new ProcessViewModel(process)));
             _processMap = _processes.ToDictionary(process => (process.Info.ProcessId, process.Info.CreateTime));
+
+            Columns.BuildFromType(typeof(ProcessViewModel));
+
             _timer.Tick += delegate { Refresh(); };
             _timer.Start();
         }
@@ -121,7 +128,7 @@ namespace SystemExplorer.Modules.Processes.ViewModels {
             }
         }
 
-        public ICommand FindCommand => new DelegateCommand<SfDataGrid>(dataGrid => {
+        public ICommand SearchCommand => new DelegateCommand<SfDataGrid>(dataGrid => {
         });
     }
 }
