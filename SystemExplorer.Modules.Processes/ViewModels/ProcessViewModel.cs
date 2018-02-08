@@ -32,6 +32,11 @@ namespace SystemExplorer.Modules.Processes.ViewModels {
         public ProcessViewModel(ProcessExtendedInformation info) {
             Info = info;
             _nativeProcess = NativeProcess.TryOpen(ProcessAccessMask.QueryLimitedInformation, Info.ProcessId);
+            if (_nativeProcess != null) {
+                IsManaged = _nativeProcess.IsManaged;
+                IsProtected = _nativeProcess.IsProtected;
+                IsInAnyJob = _nativeProcess.IsInAnyJob;
+            }
         }
 
         public TimeSpan TotalTime => Info.UserTime + Info.KernelTime;
@@ -43,6 +48,9 @@ namespace SystemExplorer.Modules.Processes.ViewModels {
         public long WorkingSetSize => Info.WorkingSetSize >> 10;
         public bool? IsImmersive => _nativeProcess?.IsImmersive;
         public int BasePriority => Info.BasePriority;
+        public bool IsManaged { get; }
+        public bool IsProtected { get; }
+        public bool IsInAnyJob { get; }
 
         public ProcessPriorityClass? PriorityClass => _nativeProcess?.PriorityClass;
 
