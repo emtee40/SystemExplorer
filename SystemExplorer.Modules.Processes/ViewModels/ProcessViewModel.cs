@@ -3,10 +3,12 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using SystemExplorer.Core;
 using Zodiacon.ManagedWindows.Core;
 using Zodiacon.ManagedWindows.Processes;
@@ -21,7 +23,13 @@ namespace SystemExplorer.Modules.Processes.ViewModels {
     [ColumnInfo(nameof(WorkingSetSize), IsHidden = true)]
     [ColumnInfo(nameof(PrivateWorkingSetSize), IsHidden = true)]
     [ColumnInfo(nameof(BasePriority), IsHidden = true)]
+    [ColumnInfo(nameof(VirtualSize), IsHidden = true)]
+    [ColumnInfo(nameof(PeakVirtualSize), IsHidden = true)]
+    [ColumnInfo(nameof(WriteOperationsCount), IsHidden = true, Text = "Write Operations")]
+    [ColumnInfo(nameof(ReadOperationsCount), IsHidden = true, Text = "Read Operations")]
     class ProcessViewModel : BindableBase, IDisposable {
+        static BitmapImage DefaultIcon = new BitmapImage(Helpers.ToPackUri(Assembly.GetExecutingAssembly(), "/icons/application.ico"));
+
         static Brush _activityBrush = new SolidColorBrush(Colors.Red) { Opacity = .5 };
         static Brush _decreaseActivityBrush = new SolidColorBrush(Colors.Green) { Opacity = .5 };
         readonly NativeProcess _nativeProcess;
@@ -39,6 +47,7 @@ namespace SystemExplorer.Modules.Processes.ViewModels {
             }
         }
 
+        public string Name => Info.ImageName;
         public TimeSpan TotalTime => Info.UserTime + Info.KernelTime;
         public TimeSpan UserTime => Info.UserTime;
         public TimeSpan KernelTime => Info.KernelTime;
@@ -51,6 +60,11 @@ namespace SystemExplorer.Modules.Processes.ViewModels {
         public bool IsManaged { get; }
         public bool IsProtected { get; }
         public bool IsInAnyJob { get; }
+        public long VirtualSize => Info.VirtualSize >> 10;
+        public long WriteOperationsCount => Info.WriteOperationCount;
+        public long ReadOperationsCount => Info.ReadOperationCount;
+        public long PeakVirtualSize => Info.PeakVirtualSize >> 10;
+        public BitmapSource Icon => ModuleHelpers.ExtractIcon(_nativeProcess?.FullImageName) ?? DefaultIcon;
 
         public ProcessPriorityClass? PriorityClass => _nativeProcess?.PriorityClass;
 
@@ -99,6 +113,10 @@ namespace SystemExplorer.Modules.Processes.ViewModels {
             RaisePropertyChanged(nameof(WorkingSetSize));
             RaisePropertyChanged(nameof(PrivateWorkingSetSize));
             RaisePropertyChanged(nameof(BasePriority));
+            RaisePropertyChanged(nameof(VirtualSize));
+            RaisePropertyChanged(nameof(PeakVirtualSize));
+            RaisePropertyChanged(nameof(WriteOperationsCount));
+            RaisePropertyChanged(nameof(ReadOperationsCount));
 
             CalculateCPU();
             RaisePropertyChanged(nameof(CPU));

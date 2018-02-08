@@ -41,7 +41,7 @@ namespace SystemExplorer.Modules.Processes.Converters {
 
         public static readonly DependencyProperty ImmersiveBackgroundProperty =
             DependencyProperty.Register(nameof(ImmersiveBackground), typeof(Brush), typeof(ProcessToRowBackgroundConverter), 
-                new PropertyMetadata(new SolidColorBrush(Colors.Cyan) { Opacity = .5 }));
+                new PropertyMetadata(new SolidColorBrush(Colors.Cyan) { Opacity = .3 }));
 
 
         public Brush ManagedBackground {
@@ -50,9 +50,8 @@ namespace SystemExplorer.Modules.Processes.Converters {
         }
 
         public static readonly DependencyProperty ManagedBackgroundProperty =
-            DependencyProperty.Register(nameof(ManagedBackground), typeof(Brush), typeof(ProcessToRowBackgroundConverter), new PropertyMetadata(new SolidColorBrush(Colors.Yellow) { Opacity = .5 }));
-
-
+            DependencyProperty.Register(nameof(ManagedBackground), typeof(Brush), typeof(ProcessToRowBackgroundConverter), 
+                new PropertyMetadata(new SolidColorBrush(Colors.Yellow) { Opacity = .3 }));
 
         public Brush InJobBackground {
             get { return (Brush)GetValue(InJobBackgroundProperty); }
@@ -60,7 +59,8 @@ namespace SystemExplorer.Modules.Processes.Converters {
         }
 
         public static readonly DependencyProperty InJobBackgroundProperty =
-            DependencyProperty.Register(nameof(InJobBackground), typeof(Brush), typeof(ProcessToRowBackgroundConverter), new PropertyMetadata(new SolidColorBrush(Colors.Brown) { Opacity = .5 }));
+            DependencyProperty.Register(nameof(InJobBackground), typeof(Brush), typeof(ProcessToRowBackgroundConverter), 
+                new PropertyMetadata(new SolidColorBrush(Colors.Brown) { Opacity = .3 }));
 
 
 
@@ -70,7 +70,8 @@ namespace SystemExplorer.Modules.Processes.Converters {
         }
 
         public static readonly DependencyProperty ProtectedBackgroundProperty =
-            DependencyProperty.Register(nameof(ProtectedBackground), typeof(Brush), typeof(ProcessToRowBackgroundConverter), new PropertyMetadata(new SolidColorBrush(Colors.Purple) { Opacity = .5 }));
+            DependencyProperty.Register(nameof(ProtectedBackground), typeof(Brush), typeof(ProcessToRowBackgroundConverter), 
+                new PropertyMetadata(new SolidColorBrush(Colors.Purple) { Opacity = .3 }));
 
 
 

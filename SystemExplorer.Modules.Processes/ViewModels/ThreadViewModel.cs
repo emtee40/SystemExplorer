@@ -50,7 +50,7 @@ namespace SystemExplorer.Modules.Processes.ViewModels {
         public TimeSpan TotalTime => KernelTime + UserTime;
 
         public int ProcessId => Info.Process.ProcessId;
-        public long ContextSwitches => Info.ContextSwicthes;
+        public long ContextSwitches => Info.ContextSwitches;
 
         public string ProcessName => Info.Process.ImageName;
         public int BasePriority => Info.BasePriority;

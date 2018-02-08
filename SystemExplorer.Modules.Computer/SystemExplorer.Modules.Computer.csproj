@@ -77,11 +77,11 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
-    <Reference Include="Zodiacon.ManagedWindows.Core, Version=1.0.6612.39670, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Zodiacon.ManagedWindows.Processes.0.2.4.2\lib\net45\Zodiacon.ManagedWindows.Core.dll</HintPath>
+    <Reference Include="Zodiacon.ManagedWindows.Core, Version=1.0.6613.27514, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Zodiacon.ManagedWindows.Processes.0.2.5\lib\net45\Zodiacon.ManagedWindows.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Zodiacon.ManagedWindows.Processes, Version=1.0.6612.40610, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Zodiacon.ManagedWindows.Processes.0.2.4.2\lib\net45\Zodiacon.ManagedWindows.Processes.dll</HintPath>
+    <Reference Include="Zodiacon.ManagedWindows.Processes, Version=1.0.6613.27514, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Zodiacon.ManagedWindows.Processes.0.2.5\lib\net45\Zodiacon.ManagedWindows.Processes.dll</HintPath>
     </Reference>
     <Reference Include="Zodiacon.WPF, Version=1.1.6599.28064, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Zodiacon.WPF.1.2.17\lib\net45\Zodiacon.WPF.dll</HintPath>
