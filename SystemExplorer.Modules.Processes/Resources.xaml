@@ -12,5 +12,7 @@
     <DataTemplate DataType="{x:Type vm:ThreadsViewModel}">
         <view:ThreadsView />
     </DataTemplate>
-
+    <DataTemplate DataType="{x:Type vm:HandlesViewModel}">
+        <view:HandlesView />
+    </DataTemplate>
 </ResourceDictionary>

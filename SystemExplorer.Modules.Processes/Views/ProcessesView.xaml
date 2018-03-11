@@ -44,7 +44,8 @@
                  HorizontalAlignment="Left" Width="300" metro:TextBoxHelper.Watermark="Type to filter" metro:TextBoxHelper.ClearTextButton="True" />
 
         <sf:SfDataGrid Grid.Row="2" ItemsSource="{Binding Processes}" Style="{StaticResource SfDataGridStyle}" IsGroupDropAreaExpanded="False" ShowGroupDropArea="True"
-                       BindableView="{Binding View, Mode=OneWayToSource}" LiveDataUpdateMode="AllowDataShaping" AllowGrouping="False" x:Name="_dataGrid" AllowDraggingColumns="True" >
+                       BindableView="{Binding View, Mode=OneWayToSource}" LiveDataUpdateMode="AllowDataShaping" AllowGrouping="False" x:Name="_dataGrid" AllowDraggingColumns="True" IsReadOnly="True"
+                       ShowBusyIndicator="True">
             <i:Interaction.Behaviors>
                 <b:ColumnChooserBehavior ColumnManager="{Binding Columns}" />
             </i:Interaction.Behaviors>

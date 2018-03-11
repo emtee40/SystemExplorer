@@ -27,8 +27,9 @@
         <TextBox Margin="0,2" Grid.Row="1" Text="{Binding FilterText, Delay=200, UpdateSourceTrigger=PropertyChanged}" 
                  HorizontalAlignment="Left" Width="300" metro:TextBoxHelper.Watermark="Type to filter" metro:TextBoxHelper.ClearTextButton="True" />
 
-        <sf:SfDataGrid Grid.Row="2" ItemsSource="{Binding Threads}" Style="{StaticResource SfDataGridStyle}" IsGroupDropAreaExpanded="False" ShowGroupDropArea="True" UsePLINQ="True"
-                       BindableView="{Binding View, Mode=OneWayToSource}" AllowGrouping="False" LiveDataUpdateMode="AllowDataShaping" EnableDataVirtualization="True"  AllowFiltering="True" FrozenColumnCount="2" >
+        <sf:SfDataGrid Grid.Row="2" ItemsSource="{Binding Threads}" Style="{StaticResource SfDataGridStyle}" IsGroupDropAreaExpanded="False" ShowGroupDropArea="True" UsePLINQ="True" IsReadOnly="True"
+                       BindableView="{Binding View, Mode=OneWayToSource}" AllowGrouping="False" LiveDataUpdateMode="AllowDataShaping" EnableDataVirtualization="True"  AllowFiltering="True" FrozenColumnCount="2" 
+                       ShowBusyIndicator="True">
             <i:Interaction.Behaviors>
                 <b:ColumnChooserBehavior ColumnManager="{Binding Columns}" />
             </i:Interaction.Behaviors>

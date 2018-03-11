@@ -46,7 +46,7 @@ namespace SystemExplorer.Modules.Processes.ViewModels {
         public ObservableCollection<ThreadViewModel> Threads => _threads ?? (_threads = Init());
 
         ObservableCollection<ThreadViewModel> Init() {
-            _threadsRaw = (from p in SystemInformation.EnumProcessesExtended(true).AsParallel()
+            _threadsRaw = (from p in SystemInformation.EnumProcessesExtended(true)
                            where p.ProcessId != 0 && p.ThreadCount > 0
                            from t in p.Threads
                            select t).ToList();
@@ -69,7 +69,7 @@ namespace SystemExplorer.Modules.Processes.ViewModels {
                 }
             }
 
-            var threads = (from p in SystemInformation.EnumProcessesExtended(true).AsParallel()
+            var threads = (from p in SystemInformation.EnumProcessesExtended(true)
                            where p.ProcessId != 0 && p.ThreadCount > 0
                            from t in p.Threads
                            select t).ToList();

@@ -4,9 +4,28 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SystemExplorer.Modules.Processes.Views"
+             xmlns:sf="http://schemas.syncfusion.com/wpf"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-            
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <sf:SfDataGrid Grid.Row="2" ItemsSource="{Binding Handles}" Style="{StaticResource SfDataGridStyle}" IsGroupDropAreaExpanded="False" ShowGroupDropArea="True" IsReadOnly="True"
+                       BindableView="{Binding View, Mode=OneWayToSource}" LiveDataUpdateMode="AllowDataShaping" AllowGrouping="False" x:Name="_dataGrid" AllowDraggingColumns="True" 
+                       EnableDataVirtualization="True" ShowBusyIndicator="True" UseDrawing="Default" DataFetchSize="100">
+            <sf:SfDataGrid.Resources>
+            </sf:SfDataGrid.Resources>
+            <sf:SfDataGrid.Columns>
+                <sf:GridTextColumn HeaderText="Process ID" MappingName="ProcessId" DisplayBinding="{Binding ProcessId, Mode=OneTime, StringFormat=\{0\} (0x\{0:X\})}" TextAlignment="Right" AllowGrouping="True" />
+                <sf:GridTextColumn HeaderText="Handle" MappingName="Handle" TextAlignment="Right" DisplayBinding="{Binding Handle, Mode=OneTime, StringFormat=\{0\} (0x\{0:X\})}"/>
+                <sf:GridTextColumn HeaderText="Object Address" MappingName="Object" DisplayBinding="{Binding Object, StringFormat=0x\{0:X\}}" TextAlignment="Center"/>
+                <sf:GridTextColumn HeaderText="Access Mask" MappingName="AccessMask" DisplayBinding="{Binding AccessMask, StringFormat=0x\{0:X8\}}" TextAlignment="Center" />
+                <sf:GridTextColumn HeaderText="Type Index" MappingName="TypeIndex" TextAlignment="Center" />
+                <sf:GridTextColumn HeaderText="Attributes" MappingName="Attributes" TextAlignment="Left" />
+            </sf:SfDataGrid.Columns>
+        </sf:SfDataGrid>
     </Grid>
 </UserControl>

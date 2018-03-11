@@ -8,10 +8,10 @@
         <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />
         <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Cobalt.xaml" />
         <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
+        <ResourceDictionary Source="/Syncfusion.SfGrid.WPF;component/Styles/Styles.xaml" />
     </ResourceDictionary.MergedDictionaries>
-    
+
     <Style TargetType="{x:Type sf:SfDataGrid}" x:Key="SfDataGridStyle">
-        <Setter Property="Background" Value="{DynamicResource WhiteBrush}" />
         <Setter Property="sf:SkinStorage.VisualStyle" Value="Metro" />
         <Setter Property="RowSelectionBrush" Value="{DynamicResource AccentColorBrush}" />
         <Setter Property="RowHoverHighlightingBrush" Value="{DynamicResource AccentColorBrush3}" />
@@ -27,7 +27,7 @@
             <Setter.Value>
                 <Style TargetType="{x:Type sf:GridHeaderCellControl}">
                     <Setter Property="Foreground" Value="{DynamicResource BlackBrush}" />
-                </Style>    
+                </Style>
             </Setter.Value>
         </Setter>
     </Style>

@@ -14,5 +14,9 @@ namespace SystemExplorer.Modules.Processes.ViewModels {
             Text = "Handles";
             Icon = Helpers.ToPackUri(Assembly.GetExecutingAssembly(), "/icons/handles.ico").ToString();
         }
+
+        public override TabItemViewModelBase CreateTabItem() {
+            return new HandlesViewModel();
+        }
     }
 }
