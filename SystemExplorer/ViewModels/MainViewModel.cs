@@ -101,8 +101,11 @@ namespace SystemExplorer.ViewModels {
         public ICommand ExitCommand => new DelegateCommand(() => Application.Current.Shutdown());
 
         public void OnImportsSatisfied() {
-            if (_treeItems.Count > 0) {
-                SwitchToTab(SelectedTreeItem);
+            foreach(var item in _treeItems) {
+                if (item.Text == "Processes") {
+                    SwitchToTab(item);
+                    break;
+                }
             }
         }
 

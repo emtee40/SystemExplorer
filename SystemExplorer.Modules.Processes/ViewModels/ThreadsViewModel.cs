@@ -29,7 +29,7 @@ namespace SystemExplorer.Modules.Processes.ViewModels {
         ObservableCollection<ThreadViewModel> _threads;
         IReadOnlyList<ThreadExtendedInformation> _threadsRaw;
         List<(ThreadViewModel thread, DateTime time)> _deadThreads = new List<(ThreadViewModel, DateTime)>(4);
-        DispatcherTimer _timer = new DispatcherTimer(DispatcherPriority.Background) { Interval = TimeSpan.FromSeconds(2) };
+        DispatcherTimer _timer = new DispatcherTimer(DispatcherPriority.Background) { Interval = TimeSpan.FromSeconds(1) };
         static ThreadComparer _comparer = new ThreadComparer();
 
         public ColumnManager Columns { get; } = new ColumnManager();
@@ -46,7 +46,7 @@ namespace SystemExplorer.Modules.Processes.ViewModels {
         public ObservableCollection<ThreadViewModel> Threads => _threads ?? (_threads = Init());
 
         ObservableCollection<ThreadViewModel> Init() {
-            _threadsRaw = (from p in SystemInformation.EnumProcessesExtended(true).AsParallel()
+            _threadsRaw = (from p in SystemInformation.EnumProcessesExtended(true)
                            where p.ProcessId != 0 && p.ThreadCount > 0
                            from t in p.Threads
                            select t).ToList();
@@ -69,7 +69,7 @@ namespace SystemExplorer.Modules.Processes.ViewModels {
                 }
             }
 
-            var threads = (from p in SystemInformation.EnumProcessesExtended(true).AsParallel()
+            var threads = (from p in SystemInformation.EnumProcessesExtended(true)
                            where p.ProcessId != 0 && p.ThreadCount > 0
                            from t in p.Threads
                            select t).ToList();
@@ -77,7 +77,7 @@ namespace SystemExplorer.Modules.Processes.ViewModels {
 
             // remove dead processes
 
-            var deadThreads = _threadsRaw.Except(threads, _comparer);
+            var deadThreads = _threadsRaw.AsParallel().Except(threads.AsParallel(), _comparer);
             foreach (var t in deadThreads) {
                 var key = (t.ThreadId, t.CreateTime);
                 var vm = _threadMap[key];
@@ -89,7 +89,6 @@ namespace SystemExplorer.Modules.Processes.ViewModels {
 
             _threadsRaw = threads;
 
-            var dispatcher = Dispatcher.CurrentDispatcher;
             foreach (var thread in threads) {
                 if (_threadMap.TryGetValue((thread.ThreadId, thread.CreateTime), out var vm)) {
                     // thread still exists, refresh it

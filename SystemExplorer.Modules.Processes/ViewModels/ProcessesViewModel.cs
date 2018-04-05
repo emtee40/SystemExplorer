@@ -43,7 +43,7 @@ namespace SystemExplorer.Modules.Processes.ViewModels {
         public ProcessesViewModel() {
             Icon = Helpers.ToPackUri(Assembly.GetExecutingAssembly(), "/icons/processes.ico").ToString();
 
-            _processesRaw = SystemInformation.EnumProcessesExtended(true);
+            _processesRaw = SystemInformation.EnumProcessesExtended(false);
             _processes = new ObservableCollection<ProcessViewModel>(_processesRaw.Select(process => new ProcessViewModel(process)));
             _processMap = _processes.ToDictionary(process => (process.Info.ProcessId, process.Info.CreateTime));
 
@@ -67,7 +67,7 @@ namespace SystemExplorer.Modules.Processes.ViewModels {
             }
 
             var time = _ticks.Elapsed;
-            var processes = SystemInformation.EnumProcessesExtended(true);
+            var processes = SystemInformation.EnumProcessesExtended();
 
             // remove dead processes
 

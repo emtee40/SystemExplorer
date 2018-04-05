@@ -35,21 +35,20 @@
                 <MenuItem Header="_About System Explorer..." Command="{Binding AboutCommand}" />
             </MenuItem>
 		</Menu>
-		<ToolBar Grid.Row="1" Grid.ColumnSpan="2">
+		<!--<ToolBar Grid.Row="1" Grid.ColumnSpan="2">
             <Button Command="{Binding OptionsModulesCommand}" Content="Modules">
                 
             </Button>	
-		</ToolBar>
-        <sf:TreeViewAdv Grid.Row="2" ItemsSource="{Binding TreeItems}" SelectedTreeItem="{Binding SelectedTreeItem, Mode=TwoWay, Delay=50}" AnimationType="None"
-                        sf:SkinStorage.VisualStyle="Metro">
+		</ToolBar>-->
+        <TreeView Grid.Row="2" ItemsSource="{Binding TreeItems}">
             <i:Interaction.Behaviors>
+                <z:TreeViewSelectedItemBehavior SelectedItem="{Binding SelectedTreeItem, Mode=TwoWay, Delay=50}" />
                 <z:EventToCommand EventName="MouseDoubleClick" Command="{Binding SwitchToTabCommand}" />
             </i:Interaction.Behaviors>
-            <sf:TreeViewAdv.ItemContainerStyle>
-                <Style TargetType="{x:Type sf:TreeViewItemAdv}">
+            <TreeView.ItemContainerStyle>
+                <Style TargetType="TreeViewItem">
                     <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}" />
                     <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
-                    <Setter Property="IsEditable" Value="False" />
                     <Setter Property="FontSize" Value="12" />
                     <Setter Property="ItemsSource" Value="{Binding Items}" />
                     <Setter Property="ContextMenu">
@@ -58,16 +57,16 @@
                         </Setter.Value>
                     </Setter>
                 </Style>
-            </sf:TreeViewAdv.ItemContainerStyle>
-            <sf:TreeViewAdv.ItemTemplate>
+            </TreeView.ItemContainerStyle>
+            <TreeView.ItemTemplate>
                 <HierarchicalDataTemplate ItemsSource="{Binding Items}">
                     <StackPanel Orientation="Horizontal" Margin="2">
                         <Image Source="{Binding Icon}" Width="16" Height="16"/>
                         <TextBlock Text="{Binding Text}" VerticalAlignment="Center" Margin="2,0" />
                     </StackPanel>
                 </HierarchicalDataTemplate>
-            </sf:TreeViewAdv.ItemTemplate>
-        </sf:TreeViewAdv>
+            </TreeView.ItemTemplate>
+        </TreeView>
 		<sf:TabControlExt Grid.Row="2" ItemsSource="{Binding TabItems}" SelectedItem="{Binding SelectedTab, Mode=TwoWay}" CloseButtonType="Individual" Grid.Column="1" 
                           SelectedIndex="{Binding SelectedTabIndex, Mode=TwoWay}" HideHeaderOnSingleChild="False" EnableLabelEdit="False" 
                           HotTrackingEnabled="True" TabItemLayout="MultiLine" IsDisableUnloadTabItemExtContent="True"
