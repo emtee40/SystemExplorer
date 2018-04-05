@@ -29,24 +29,32 @@ namespace SystemExplorer.Modules.Processes.ViewModels {
         ObservableCollection<ThreadViewModel> _threads;
         IReadOnlyList<ThreadExtendedInformation> _threadsRaw;
         List<(ThreadViewModel thread, DateTime time)> _deadThreads = new List<(ThreadViewModel, DateTime)>(4);
-        DispatcherTimer _timer = new DispatcherTimer(DispatcherPriority.Background) { Interval = TimeSpan.FromSeconds(1) };
+        DispatcherTimer _timer = new DispatcherTimer(DispatcherPriority.Background) { Interval = TimeSpan.FromSeconds(2) };
         static ThreadComparer _comparer = new ThreadComparer();
+
+        public ColumnManager Columns { get; } = new ColumnManager();
 
         public ThreadsViewModel() {
             Icon = Helpers.ToPackUri(Assembly.GetExecutingAssembly(), "/icons/threads.ico").ToString();
-            _threadsRaw = (from p in SystemInformation.EnumProcessesAndThreads()
-                           where p.ProcessId != 0 && p.ThreadCount > 0
-                           from t in p.Threads
-                           select t).ToList();
 
-            _threads = new ObservableCollection<ThreadViewModel>(_threadsRaw.Select(t => new ThreadViewModel(t)));
+            Columns.BuildFromType(typeof(ThreadViewModel));
 
-            _threadMap = _threads.ToDictionary(t => (t.Info.ThreadId, t.Info.CreateTime));
             _timer.Tick += delegate { Refresh(); };
             _timer.Start();
         }
 
-        public IList<ThreadViewModel> Threads => _threads;
+        public ObservableCollection<ThreadViewModel> Threads => _threads ?? (_threads = Init());
+
+        ObservableCollection<ThreadViewModel> Init() {
+            _threadsRaw = (from p in SystemInformation.EnumProcessesExtended(true).AsParallel()
+                           where p.ProcessId != 0 && p.ThreadCount > 0
+                           from t in p.Threads
+                           select t).ToList();
+            _threads = new ObservableCollection<ThreadViewModel>(_threadsRaw.Select(t => new ThreadViewModel(t)));
+            _threadMap = _threads.ToDictionary(t => (t.Info.ThreadId, t.Info.CreateTime));
+
+            return _threads;
+        }
 
         public void Refresh() {
             _timer.Stop();
@@ -61,7 +69,7 @@ namespace SystemExplorer.Modules.Processes.ViewModels {
                 }
             }
 
-            var threads = (from p in SystemInformation.EnumProcessesAndThreads().AsParallel()
+            var threads = (from p in SystemInformation.EnumProcessesExtended(true).AsParallel()
                            where p.ProcessId != 0 && p.ThreadCount > 0
                            from t in p.Threads
                            select t).ToList();

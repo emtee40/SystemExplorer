@@ -14,6 +14,17 @@ using Zodiacon.ManagedWindows.Processes;
 using ThreadState = Zodiacon.ManagedWindows.Core.ThreadState;
 
 namespace SystemExplorer.Modules.Processes.ViewModels {
+    [ColumnInfo(nameof(CreateTime), IsHidden = true)]
+    [ColumnInfo(nameof(TotalTime), IsHidden = true)]
+    [ColumnInfo(nameof(KernelTime), IsHidden = true)]
+    [ColumnInfo(nameof(UserTime), IsHidden = true)]
+    [ColumnInfo(nameof(BasePriority), IsHidden = true)]
+    [ColumnInfo(nameof(Priority))]
+    [ColumnInfo(nameof(ContextSwitches))]
+    [ColumnInfo(nameof(State))]
+    [ColumnInfo(nameof(WaitReason))]
+    [ColumnInfo(nameof(ProcessId))]
+    [ColumnInfo(nameof(ProcessName))]
     sealed class ThreadViewModel : BindableBase, IDisposable {
         public ThreadExtendedInformation Info { get; private set; }
         NativeThread _nativeThread;
@@ -28,12 +39,6 @@ namespace SystemExplorer.Modules.Processes.ViewModels {
             _nativeThread = NativeThread.TryOpen(ThreadAccessMask.QueryLimitedInformation, info.ThreadId);
         }
 
-        public void Refresh() {
-            RaisePropertyChanged(nameof(KernelTime));
-            RaisePropertyChanged(nameof(UserTime));
-            RaisePropertyChanged(nameof(TotalTime));
-        }
-
         public void Dispose() {
             _nativeThread?.Dispose();
         }
@@ -45,6 +50,7 @@ namespace SystemExplorer.Modules.Processes.ViewModels {
         public TimeSpan TotalTime => KernelTime + UserTime;
 
         public int ProcessId => Info.Process.ProcessId;
+        public long ContextSwitches => Info.ContextSwitches;
 
         public string ProcessName => Info.Process.ImageName;
         public int BasePriority => Info.BasePriority;
@@ -88,6 +94,7 @@ namespace SystemExplorer.Modules.Processes.ViewModels {
             RaisePropertyChanged(nameof(WaitReason));
             RaisePropertyChanged(nameof(BasePriority));
             RaisePropertyChanged(nameof(Priority));
+            RaisePropertyChanged(nameof(ContextSwitches));
 
             CpuTimeBackground = SignToBrush(TotalTime.Ticks - (oldInfo.KernelTime + oldInfo.UserTime).Ticks);
             KernelTimeBackground = SignToBrush(KernelTime.Ticks - oldInfo.KernelTime.Ticks);

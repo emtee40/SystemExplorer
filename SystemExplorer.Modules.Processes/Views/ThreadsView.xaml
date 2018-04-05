@@ -6,6 +6,9 @@
              xmlns:metro="http://metro.mahapps.com/winfx/xaml/controls"
              xmlns:local="clr-namespace:SystemExplorer.Modules.Processes.Views"
              xmlns:sf="http://schemas.syncfusion.com/wpf"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:core="clr-namespace:SystemExplorer.Core.Controls;assembly=SystemExplorer.Core"
+             xmlns:b="clr-namespace:SystemExplorer.Core.Behaviors;assembly=SystemExplorer.Core"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
@@ -14,11 +17,21 @@
             <RowDefinition Height="Auto" />
             <RowDefinition />
         </Grid.RowDefinitions>
+        <ToolBar>
+            <sf:DropDownButtonAdv Label="Columns" SmallIcon="../icons/table_column.ico" BorderThickness="0" IconWidth="20" IconHeight="20"
+                                  sf:SkinStorage.VisualStyle="Metro" sf:SkinStorage.MetroBrush="{DynamicResource AccentColorBrush}" >
+                <core:GridColumnChooser ColumnManager="{Binding Columns}" Padding="8" BorderBrush="{DynamicResource AccentColorBrush}" BorderThickness="1" 
+                                        Title="Select Columns to View" />
+            </sf:DropDownButtonAdv>
+        </ToolBar>
         <TextBox Margin="0,2" Grid.Row="1" Text="{Binding FilterText, Delay=200, UpdateSourceTrigger=PropertyChanged}" 
                  HorizontalAlignment="Left" Width="300" metro:TextBoxHelper.Watermark="Type to filter" metro:TextBoxHelper.ClearTextButton="True" />
 
         <sf:SfDataGrid Grid.Row="2" ItemsSource="{Binding Threads}" Style="{StaticResource SfDataGridStyle}" IsGroupDropAreaExpanded="False" ShowGroupDropArea="True" UsePLINQ="True"
                        BindableView="{Binding View, Mode=OneWayToSource}" AllowGrouping="False" LiveDataUpdateMode="AllowDataShaping" EnableDataVirtualization="True"  AllowFiltering="True" FrozenColumnCount="2" >
+            <i:Interaction.Behaviors>
+                <b:ColumnChooserBehavior ColumnManager="{Binding Columns}" />
+            </i:Interaction.Behaviors>
             <sf:SfDataGrid.Columns>
                 <sf:GridTemplateColumn HeaderText="Thread ID" MappingName="Info.ThreadId" TextAlignment="Center" ColumnSizer="SizeToHeader" AllowFiltering="False">
                     <sf:GridTemplateColumn.CellTemplate>

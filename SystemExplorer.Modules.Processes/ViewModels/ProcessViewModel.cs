@@ -7,10 +7,20 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
 using System.Windows.Media;
+using SystemExplorer.Core;
 using Zodiacon.ManagedWindows.Core;
 using Zodiacon.ManagedWindows.Processes;
 
 namespace SystemExplorer.Modules.Processes.ViewModels {
+    [ColumnInfo(nameof(CPU))]
+    [ColumnInfo(nameof(TotalTime), IsHidden = true)]
+    [ColumnInfo(nameof(KernelTime), IsHidden = true)]
+    [ColumnInfo(nameof(UserTime), IsHidden = true)]
+    [ColumnInfo(nameof(ThreadCount))]
+    [ColumnInfo(nameof(HandleCount))]
+    [ColumnInfo(nameof(WorkingSetSize), IsHidden = true)]
+    [ColumnInfo(nameof(PrivateWorkingSetSize), IsHidden = true)]
+    [ColumnInfo(nameof(BasePriority), IsHidden = true)]
     class ProcessViewModel : BindableBase, IDisposable {
         static Brush _activityBrush = new SolidColorBrush(Colors.Red) { Opacity = .5 };
         static Brush _decreaseActivityBrush = new SolidColorBrush(Colors.Green) { Opacity = .5 };
@@ -32,6 +42,8 @@ namespace SystemExplorer.Modules.Processes.ViewModels {
         public long PrivateWorkingSetSize => Info.PrivateWorkingSetSize >> 10;
         public long WorkingSetSize => Info.WorkingSetSize >> 10;
         public bool? IsImmersive => _nativeProcess?.IsImmersive;
+        public int BasePriority => Info.BasePriority;
+
         public ProcessPriorityClass? PriorityClass => _nativeProcess?.PriorityClass;
 
         long _lastTicks, _currentTicks;
@@ -78,8 +90,9 @@ namespace SystemExplorer.Modules.Processes.ViewModels {
             RaisePropertyChanged(nameof(ThreadCount));
             RaisePropertyChanged(nameof(WorkingSetSize));
             RaisePropertyChanged(nameof(PrivateWorkingSetSize));
-            CalculateCPU();
+            RaisePropertyChanged(nameof(BasePriority));
 
+            CalculateCPU();
             RaisePropertyChanged(nameof(CPU));
 
             CpuTimeBackground = SignToBrush(TotalTime.Ticks - (oldInfo.KernelTime + oldInfo.UserTime).Ticks);
