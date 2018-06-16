@@ -15,9 +15,9 @@ using Zodiacon.WPF;
 namespace SystemExplorer.Modules.Processes.ViewModels {
     [Export, Item(Text = "Handles")]
     sealed class HandlesViewModel : TabItemViewModelBase {
-        SystemHandleInfo[] _rawHandles;
+        SystemHandleInformation[] _rawHandles;
         ObservableCollection<HandleViewModel> _handles;
-        Dictionary<SystemHandleInfo, HandleViewModel> _handleMap;
+        Dictionary<SystemHandleInformation, HandleViewModel> _handleMap;
         DispatcherTimer _timer = new DispatcherTimer(DispatcherPriority.Background) { Interval = TimeSpan.FromMilliseconds(100) };
 
         public IList<HandleViewModel> Handles => _handles;

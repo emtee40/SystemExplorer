@@ -8,19 +8,21 @@ using Zodiacon.ManagedWindows.Core;
 
 namespace SystemExplorer.Modules.Processes.ViewModels {
     sealed class HandleViewModel {
-        public readonly SystemHandleInfo Info;
+        public readonly SystemHandleInformation Info;
+        public KernelObjectType ObjectType { get; }
 
-        public HandleViewModel(SystemHandleInfo info) {
+        public HandleViewModel(SystemHandleInformation info) {
             Info = info;
+            ObjectType = SystemInformation.GetKernelObjectTypeByIndex(info.ObjectTypeIndex);
         }
 
-        public long Object => Info.Object.ToInt64();
+        public ulong Object => Info.Object.ToUInt64();
         public int Handle => Info.Handle;
         public int TypeIndex => Info.ObjectTypeIndex;
         public int ProcessId => Info.ProcessId;
         public uint AccessMask => Info.AccessMask;
         public HandleAttributes Attributes => (HandleAttributes)Info.Attributes;
-        public string TypeName { get; }
+        public string TypeName => ObjectType.Name;
 
     }
 }

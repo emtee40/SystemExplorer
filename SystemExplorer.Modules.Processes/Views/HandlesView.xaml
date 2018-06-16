@@ -23,7 +23,7 @@
                 <sf:GridTextColumn HeaderText="Handle" MappingName="Handle" TextAlignment="Right" DisplayBinding="{Binding Handle, Mode=OneTime, StringFormat=\{0\} (0x\{0:X\})}"/>
                 <sf:GridTextColumn HeaderText="Object Address" MappingName="Object" DisplayBinding="{Binding Object, StringFormat=0x\{0:X\}}" TextAlignment="Center"/>
                 <sf:GridTextColumn HeaderText="Access Mask" MappingName="AccessMask" DisplayBinding="{Binding AccessMask, StringFormat=0x\{0:X8\}}" TextAlignment="Center" />
-                <sf:GridTextColumn HeaderText="Type Index" MappingName="TypeIndex" TextAlignment="Center" />
+                <sf:GridTextColumn HeaderText="Type" MappingName="TypeName" TextAlignment="Left" AllowGrouping="True" />
                 <sf:GridTextColumn HeaderText="Attributes" MappingName="Attributes" TextAlignment="Left" />
             </sf:SfDataGrid.Columns>
         </sf:SfDataGrid>
