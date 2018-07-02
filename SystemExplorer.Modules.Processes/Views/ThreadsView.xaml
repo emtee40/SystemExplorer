@@ -44,10 +44,10 @@
                         </DataTemplate>
                     </sf:GridTemplateColumn.CellTemplate>
                 </sf:GridTemplateColumn>
-                <sf:GridTextColumn HeaderText="State" MappingName="State" ValueBinding="{Binding State, IsAsync=True}" TextAlignment="Left" AllowGrouping="True" ColumnSizer="SizeToCells" MinimumWidth="80" />
+                <sf:GridTextColumn HeaderText="State" MappingName="State" ValueBinding="{Binding State, IsAsync=False}" TextAlignment="Left" AllowGrouping="True" ColumnSizer="SizeToCells" MinimumWidth="80" />
                 <sf:GridTextColumn HeaderText="Wait Reason" MappingName="WaitReason" TextAlignment="Left" AllowGrouping="True" ColumnSizer="SizeToCells" AllowFiltering="False" />
                 <sf:GridTextColumn HeaderText="Process ID" MappingName="ProcessId" ValueBinding="{Binding ProcessId, Mode=OneTime}" TextAlignment="Center" AllowGrouping="True" />
-                <sf:GridTextColumn HeaderText="Process Name" MappingName="ProcessName" ColumnSizer="SizeToCells" AllowGrouping="True" />
+                <sf:GridTextColumn HeaderText="Process Name" MappingName="ProcessName" ColumnSizer="SizeToCells" AllowGrouping="True" ValueBinding="{Binding ProcessName, Mode=OneTime}" />
                 <sf:GridTextColumn HeaderText="Creation Time" MappingName="CreateTime" ValueBinding="{Binding CreateTime, Mode=OneTime, StringFormat=dd MMM HH:mm:ss.fff}" TextAlignment="Right" AllowFiltering="False"  />
                 <sf:GridTextColumn HeaderText="CPU Time" MappingName="TotalTime" TextAlignment="Right" ValueBinding="{Binding TotalTime}" AllowFiltering="False" >
                     <sf:GridTextColumn.CellStyle>

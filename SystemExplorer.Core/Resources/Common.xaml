@@ -12,8 +12,8 @@
     </ResourceDictionary.MergedDictionaries>
 
     <Style TargetType="{x:Type sf:SfDataGrid}" x:Key="SfDataGridStyle">
-        <Setter Property="sf:SkinStorage.VisualStyle" Value="Metro" />
-        <Setter Property="RowSelectionBrush" Value="{DynamicResource AccentColorBrush}" />
+        <!--<Setter Property="sf:SkinStorage.VisualStyle" Value="Metro" />-->
+        <Setter Property="RowSelectionBrush" Value="{DynamicResource AccentColorBrush2}" />
         <Setter Property="RowHoverHighlightingBrush" Value="{DynamicResource AccentColorBrush3}" />
         <Setter Property="AllowRowHoverHighlighting" Value="True" />
         <Setter Property="SelectionForegroundBrush" Value="{DynamicResource WhiteBrush}" />
@@ -22,14 +22,14 @@
         <Setter Property="ColumnSizer" Value="Auto" />
         <Setter Property="AutoGenerateColumns" Value="False" />
         <Setter Property="AllowResizingColumns" Value="True" />
-        <Setter Property="sf:SkinStorage.MetroBrush" Value="{DynamicResource AccentColorBrush}" />
-        <Setter Property="HeaderStyle">
+        <!--<Setter Property="sf:SkinStorage.MetroBrush" Value="{DynamicResource AccentColorBrush}" />-->
+        <!--<Setter Property="HeaderStyle">
             <Setter.Value>
                 <Style TargetType="{x:Type sf:GridHeaderCellControl}">
                     <Setter Property="Foreground" Value="{DynamicResource BlackBrush}" />
                 </Style>
             </Setter.Value>
-        </Setter>
+        </Setter>-->
     </Style>
 
 </ResourceDictionary>

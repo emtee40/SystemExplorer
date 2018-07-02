@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
+using System.ComponentModel.Composition.Hosting;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -15,8 +16,11 @@ namespace SystemExplorer.Modules.Processes.ViewModels {
             Icon = Helpers.ToPackUri(Assembly.GetExecutingAssembly(), "/icons/handles.ico").ToString();
         }
 
+        [Import]
+        CompositionContainer Container;
+
         public override TabItemViewModelBase CreateTabItem() {
-            return new HandlesViewModel();
+            return Container.GetExportedValue<HandlesViewModel>();
         }
     }
 }

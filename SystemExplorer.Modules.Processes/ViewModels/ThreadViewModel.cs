@@ -85,16 +85,23 @@ namespace SystemExplorer.Modules.Processes.ViewModels {
         internal void Update(ThreadExtendedInformation info) {
             var oldInfo = Info;
             Info = info;
+            if (oldInfo.KernelTime != info.KernelTime)
+                RaisePropertyChanged(nameof(KernelTime));
+            if (oldInfo.UserTime != info.UserTime)
+                RaisePropertyChanged(nameof(UserTime));
             RaisePropertyChanged(nameof(TotalTime));
-            RaisePropertyChanged(nameof(KernelTime));
-            RaisePropertyChanged(nameof(UserTime));
-            _state = null;
-            RaisePropertyChanged(nameof(State));
-            RaisePropertyChanged(nameof(Icon));
-            RaisePropertyChanged(nameof(WaitReason));
-            RaisePropertyChanged(nameof(BasePriority));
-            RaisePropertyChanged(nameof(Priority));
-            RaisePropertyChanged(nameof(ContextSwitches));
+            if (info.State != oldInfo.State) {
+                _state = null;
+                RaisePropertyChanged(nameof(State));
+                RaisePropertyChanged(nameof(Icon));
+            }
+            //if(oldInfo.WaitReason != info.WaitReason)
+            //    RaisePropertyChanged(nameof(WaitReason));
+            if (oldInfo.BasePriority != info.BasePriority)
+                RaisePropertyChanged(nameof(BasePriority));
+            if (oldInfo.Priority != info.Priority)
+                RaisePropertyChanged(nameof(Priority));
+            //RaisePropertyChanged(nameof(ContextSwitches));
 
             CpuTimeBackground = SignToBrush(TotalTime.Ticks - (oldInfo.KernelTime + oldInfo.UserTime).Ticks);
             KernelTimeBackground = SignToBrush(KernelTime.Ticks - oldInfo.KernelTime.Ticks);

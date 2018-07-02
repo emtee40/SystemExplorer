@@ -104,19 +104,39 @@ namespace SystemExplorer.Modules.Processes.ViewModels {
             var oldInfo = Info;
             Info = info;
             _currentTicks = time;
+            bool timeChanged = false;
+            if(oldInfo.HandleCount != info.HandleCount)
+                RaisePropertyChanged(nameof(HandleCount));
+            if (oldInfo.KernelTime != info.KernelTime) {
+                RaisePropertyChanged(nameof(KernelTime));
+                timeChanged = true;
+            }
+            if (oldInfo.KernelTime != info.UserTime) {
+                RaisePropertyChanged(nameof(UserTime));
+                timeChanged = true;
+            }
+            if(timeChanged)
+                RaisePropertyChanged(nameof(TotalTime));
 
-            RaisePropertyChanged(nameof(TotalTime));
-            RaisePropertyChanged(nameof(HandleCount));
-            RaisePropertyChanged(nameof(KernelTime));
-            RaisePropertyChanged(nameof(UserTime));
-            RaisePropertyChanged(nameof(ThreadCount));
-            RaisePropertyChanged(nameof(WorkingSetSize));
-            RaisePropertyChanged(nameof(PrivateWorkingSetSize));
-            RaisePropertyChanged(nameof(BasePriority));
-            RaisePropertyChanged(nameof(VirtualSize));
-            RaisePropertyChanged(nameof(PeakVirtualSize));
-            RaisePropertyChanged(nameof(WriteOperationsCount));
-            RaisePropertyChanged(nameof(ReadOperationsCount));
+            if(info.ThreadCount != oldInfo.ThreadCount)
+                RaisePropertyChanged(nameof(ThreadCount));
+
+            if (info.WorkingSetSize != oldInfo.WorkingSetSize)
+                RaisePropertyChanged(nameof(WorkingSetSize));
+
+            if (info.PrivateWorkingSetSize!= oldInfo.PrivateWorkingSetSize)
+                RaisePropertyChanged(nameof(PrivateWorkingSetSize));
+
+            if (info.BasePriority != oldInfo.BasePriority)
+                RaisePropertyChanged(nameof(BasePriority));
+            if(info.VirtualSize != oldInfo.VirtualSize)
+                RaisePropertyChanged(nameof(VirtualSize));
+            if (info.PeakVirtualSize != oldInfo.PeakVirtualSize)
+                RaisePropertyChanged(nameof(PeakVirtualSize));
+            if (info.WriteOperationCount != oldInfo.WriteOperationCount)
+                RaisePropertyChanged(nameof(WriteOperationsCount));
+            if (info.ReadOperationCount != oldInfo.ReadOperationCount)
+                RaisePropertyChanged(nameof(ReadOperationsCount));
 
             CalculateCPU();
             RaisePropertyChanged(nameof(CPU));

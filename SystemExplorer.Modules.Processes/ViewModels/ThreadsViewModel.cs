@@ -14,13 +14,11 @@ using Zodiacon.ManagedWindows.Core;
 
 namespace SystemExplorer.Modules.Processes.ViewModels {
     sealed class ThreadComparer : IEqualityComparer<ThreadExtendedInformation> {
-        public bool Equals(ThreadExtendedInformation x, ThreadExtendedInformation y) {
-            return x.ThreadId == y.ThreadId && x.CreateTime == y.CreateTime;
-        }
+        public bool Equals(ThreadExtendedInformation x, ThreadExtendedInformation y) => x.ThreadId == y.ThreadId && x.CreateTime == y.CreateTime;
 
-        public int GetHashCode(ThreadExtendedInformation obj) {
-            return obj.ThreadId.GetHashCode() ^ obj.CreateTime.GetHashCode();
-        }
+        public int GetHashCode(ThreadExtendedInformation obj) => obj.ThreadId ^ obj.CreateTime.GetHashCode();
+
+        public static readonly ThreadComparer Instance = new ThreadComparer();
     }
 
     [Export, Item(Text = "Threads")]
@@ -29,8 +27,7 @@ namespace SystemExplorer.Modules.Processes.ViewModels {
         ObservableCollection<ThreadViewModel> _threads;
         IReadOnlyList<ThreadExtendedInformation> _threadsRaw;
         List<(ThreadViewModel thread, DateTime time)> _deadThreads = new List<(ThreadViewModel, DateTime)>(4);
-        DispatcherTimer _timer = new DispatcherTimer(DispatcherPriority.Background) { Interval = TimeSpan.FromSeconds(1) };
-        static ThreadComparer _comparer = new ThreadComparer();
+        DispatcherTimer _timer = new DispatcherTimer(DispatcherPriority.Background) { Interval = TimeSpan.FromSeconds(2) };
 
         public ColumnManager Columns { get; } = new ColumnManager();
 
@@ -56,7 +53,7 @@ namespace SystemExplorer.Modules.Processes.ViewModels {
             return _threads;
         }
 
-        public void Refresh() {
+        public async void Refresh() {
             _timer.Stop();
 
             for (int i = 0; i < _deadThreads.Count; i++) {
@@ -69,27 +66,29 @@ namespace SystemExplorer.Modules.Processes.ViewModels {
                 }
             }
 
-            var threads = (from p in SystemInformation.EnumProcessesExtended(true)
-                           where p.ProcessId != 0 && p.ThreadCount > 0
-                           from t in p.Threads
-                           select t).ToList();
+            await Task.Run(() => {
+                var threads = (from p in SystemInformation.EnumProcessesExtended(true)
+                               where p.ProcessId != 0 && p.ThreadCount > 0
+                               from t in p.Threads
+                               select t).ToArray();
 
 
-            // remove dead processes
+                // remove dead processes
 
-            var deadThreads = _threadsRaw.AsParallel().Except(threads.AsParallel(), _comparer);
-            foreach (var t in deadThreads) {
-                var key = (t.ThreadId, t.CreateTime);
-                var vm = _threadMap[key];
-                vm.IsDead = true;
-                _deadThreads.Add((vm, DateTime.UtcNow));
-                vm.Dispose();
-                _threadMap.Remove(key);
-            }
+                var deadThreads = _threadsRaw.Except(threads, ThreadComparer.Instance);
+                foreach (var t in deadThreads) {
+                    var key = (t.ThreadId, t.CreateTime);
+                    var vm = _threadMap[key];
+                    vm.IsDead = true;
+                    _deadThreads.Add((vm, DateTime.UtcNow));
+                    vm.Dispose();
+                    _threadMap.Remove(key);
+                }
 
-            _threadsRaw = threads;
+                _threadsRaw = threads;
+            });
 
-            foreach (var thread in threads) {
+            foreach (var thread in _threadsRaw) {
                 if (_threadMap.TryGetValue((thread.ThreadId, thread.CreateTime), out var vm)) {
                     // thread still exists, refresh it
                     if (!vm.IsDead) {
@@ -97,7 +96,7 @@ namespace SystemExplorer.Modules.Processes.ViewModels {
                     }
                 }
                 else {
-                    // new process, add
+                    // new thread, add
                     vm = new ThreadViewModel(thread);
                     _threads.Add(vm);
 
@@ -109,12 +108,7 @@ namespace SystemExplorer.Modules.Processes.ViewModels {
             _timer.Start();
         }
 
-        protected override void OnActive(bool active) {
-            if (!active)
-                _timer.Stop();
-            else
-                _timer.Start();
-        }
+        protected override void OnActive(bool active) => _timer.IsEnabled = active;
 
         public ICollectionViewAdv View { get; set; }
 
@@ -122,6 +116,8 @@ namespace SystemExplorer.Modules.Processes.ViewModels {
         public string FilterText {
             get => _filterText;
             set {
+                if (View == null)
+                    return;
                 if (SetProperty(ref _filterText, value)) {
                     if (string.IsNullOrWhiteSpace(value))
                         View.Filter = null;
@@ -132,7 +128,7 @@ namespace SystemExplorer.Modules.Processes.ViewModels {
                             return vm.ProcessName.ToLower().Contains(text);
                         };
                     }
-                    View.RefreshFilter();
+                    View.RefreshFilter(true);
                 }
             }
         }

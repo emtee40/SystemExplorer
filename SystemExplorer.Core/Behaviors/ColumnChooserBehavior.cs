@@ -10,13 +10,6 @@ using System.Windows.Interactivity;
 
 namespace SystemExplorer.Core.Behaviors {
     public sealed class ColumnChooserBehavior : Behavior<SfDataGrid> {
-        protected override void OnAttached() {
-            base.OnAttached();
-        }
-
-        protected override void OnDetaching() {
-            base.OnDetaching();
-        }
 
         public ColumnManager ColumnManager {
             get { return (ColumnManager)GetValue(ColumnManagerProperty); }

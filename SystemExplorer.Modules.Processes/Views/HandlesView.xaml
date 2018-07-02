@@ -21,8 +21,8 @@
             <sf:SfDataGrid.Columns>
                 <sf:GridTextColumn HeaderText="Process ID" MappingName="ProcessId" DisplayBinding="{Binding ProcessId, Mode=OneTime, StringFormat=\{0\} (0x\{0:X\})}" TextAlignment="Right" AllowGrouping="True" />
                 <sf:GridTextColumn HeaderText="Handle" MappingName="Handle" TextAlignment="Right" DisplayBinding="{Binding Handle, Mode=OneTime, StringFormat=\{0\} (0x\{0:X\})}"/>
-                <sf:GridTextColumn HeaderText="Object Address" MappingName="Object" DisplayBinding="{Binding Object, StringFormat=0x\{0:X\}}" TextAlignment="Center"/>
-                <sf:GridTextColumn HeaderText="Access Mask" MappingName="AccessMask" DisplayBinding="{Binding AccessMask, StringFormat=0x\{0:X8\}}" TextAlignment="Center" />
+                <sf:GridTextColumn HeaderText="Object Address" MappingName="Object" DisplayBinding="{Binding Object, Mode=OneTime, StringFormat=0x\{0:X\}}" TextAlignment="Center"/>
+                <sf:GridTextColumn HeaderText="Access Mask" MappingName="AccessMask" DisplayBinding="{Binding AccessMask, Mode=OneTime, StringFormat=0x\{0:X8\}}" TextAlignment="Center" />
                 <sf:GridTextColumn HeaderText="Type" MappingName="TypeName" TextAlignment="Left" AllowGrouping="True" />
                 <sf:GridTextColumn HeaderText="Attributes" MappingName="Attributes" TextAlignment="Left" />
             </sf:SfDataGrid.Columns>

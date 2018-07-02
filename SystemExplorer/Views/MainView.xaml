@@ -42,7 +42,7 @@
 		</ToolBar>-->
         <TreeView Grid.Row="2" ItemsSource="{Binding TreeItems}">
             <i:Interaction.Behaviors>
-                <z:TreeViewSelectedItemBehavior SelectedItem="{Binding SelectedTreeItem, Mode=TwoWay, Delay=50}" />
+                <z:TreeViewSelectedItemBehavior SelectedItem="{Binding SelectedTreeItem, Mode=TwoWay, Delay=150}" />
                 <z:EventToCommand EventName="MouseDoubleClick" Command="{Binding SwitchToTabCommand}" />
             </i:Interaction.Behaviors>
             <TreeView.ItemContainerStyle>

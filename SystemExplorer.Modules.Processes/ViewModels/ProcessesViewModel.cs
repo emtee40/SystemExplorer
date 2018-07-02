@@ -56,7 +56,7 @@ namespace SystemExplorer.Modules.Processes.ViewModels {
         Stopwatch _ticks = Stopwatch.StartNew();
 
         public void Refresh() {
-            for(int i = 0; i < _deadProcesses.Count; i++) {
+            for (int i = 0; i < _deadProcesses.Count; i++) {
                 var process = _deadProcesses[i];
                 if ((DateTime.UtcNow - process.time).TotalMilliseconds > 3000) {
                     // now really dead
@@ -84,7 +84,7 @@ namespace SystemExplorer.Modules.Processes.ViewModels {
 
             _processesRaw = processes;
 
-            foreach (var process in processes) {
+            foreach (var process in _processesRaw) {
                 if (_processMap.TryGetValue((process.ProcessId, process.CreateTime), out var vm)) {
                     // process still exists, refresh it
                     if (!vm.IsDead)
@@ -129,6 +129,7 @@ namespace SystemExplorer.Modules.Processes.ViewModels {
         }
 
         public ICommand SearchCommand => new DelegateCommand<SfDataGrid>(dataGrid => {
+            dataGrid.SearchHelper.Search(FilterText);
         });
     }
 }
